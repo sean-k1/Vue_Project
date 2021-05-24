@@ -3,13 +3,13 @@
     <v-container fluid class="pt-0 pb-0 fill-height">
       <v-row class="fill-height">
         <v-col
-          cols="8"
+          cols="9"
         >
          <kakaomap ></kakaomap>
          maps area
         </v-col>
         <v-col
-         cols="4"
+         cols="3"
           :class="[
             'pa-0',
             { 'fill-height': $vuetify.breakpoint.name.smAndDown ? true : false }

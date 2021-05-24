@@ -16,12 +16,9 @@ export default {
   data() {
     return {
       map: null,
-      geocoder: null,
       markers:[],
       infowindows:[],
       search: "",
-      user: "",
-      country: 0,
       searchbar: "",
       input: "",
       // station: {},
@@ -65,7 +62,7 @@ export default {
         level: 3,
       };
       container.style.width = "100%";
-      container.style.height = "1000px";
+      container.style.height = "1400px";
 
       let map = new kakao.maps.Map(container, options);
       let mapTypeControl = new kakao.maps.MapTypeControl();
@@ -89,12 +86,12 @@ export default {
         this.neLatlng = bounds.getNorthEast();
 
         this.matcharea();
-        this.showstation();
+        //this.showstation();
         this.showdeallist();
         
     
 });
-      this.geocoder = new kakao.maps.services.Geocoder();
+     
     },
     matcharea(){
        let nela=this.neLatlng.La;
@@ -133,27 +130,22 @@ export default {
       console.log(areadata);
      // this.removeMarker();
       for(let key in areadata) {
-        // for(let i=0; i<data[key].length;i++){
-        //  kakaohttp.get(`keyword.json?query=` + data[key][i].dong +" "+data[key][i].name).then(({ markerposition }) => {
-        //    if(markerposition.documents.length!=0){
-        //       console.log(markerposition.documents);
-        //         break;
-        //    }
- 
-        // });
-          let nela=this.neLatlng.La;
-       let swla =this.swLatlng.La;
-      let nema=(this.neLatlng.Ma);
-     let swma=(this.swLatlng.Ma);
-        let searchquery= areadata[key][0].dong +" "+areadata[key][0].name.replace("("," ").replace(")"," ");
 
-         kakaohttp.get(`keyword.json?query=` + searchquery).then(({ data }) => {
-              if(data.documents.length>0){
+            let nela=this.neLatlng.La;
+            let swla =this.swLatlng.La;
+            let nema=(this.neLatlng.Ma);
+            let swma=(this.swLatlng.Ma);
+            let searchquery= areadata[key][0].dong +" "+areadata[key][0].name.replace("("," ").replace(")"," ");
+
+            kakaohttp.get(`keyword.json?query=` + searchquery).then(({ data }) => {
+                if(data.documents.length>0){
+                    console.log(data.documents);    
+
                     let types = data.documents[0].category_name.split(" > ");
-                   if(searchquery.includes(data.documents[0].place_name)  && types[0] == "부동산" && types[1] == "주거시설"){
-                     if(nela>=data.documents[0].x&&swla<=data.documents[0].x && nema>=data.documents[0].y && swma<=data.documents[0].y){
-                        this.displayMarkerclick(data.documents[0],areadata[key] );
-                        
+                    if(searchquery.includes(data.documents[0].place_name)  && types[0] == "부동산" && types[1] == "주거시설"){
+                        if(nela>=data.documents[0].x&&swla<=data.documents[0].x && nema>=data.documents[0].y && swma<=data.documents[0].y){
+                             this.displayMarkerclick(data.documents[0],areadata[key] );
+
                      }
                    }
 
@@ -161,20 +153,7 @@ export default {
               });
       }
 
-   
-
-
-      // kakaohttp.get(`keyword.json?query=` + query).then(({ data }) => {
-
-       //});
-
-    },
-    showstation(){
-
     }
-
-    
-
     ,gethttp(query) {
       this.removeMarker();
       this.$store.dispatch("getStation", {});
@@ -247,40 +226,37 @@ export default {
         return false;
       }
       this.gethttp(this.search);
-
-      // ps = new kakao.maps.services.Places();
-      // ps.keywordSearch(this.search, this.placesSearchCB);
-      //console.log(ps);
-    },
-    placesSearchCB(data, status, pagination) {
-      if (status === kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        var bounds = new kakao.maps.LatLngBounds();
-        console.log(pagination);
-        for (var i = 0; i < data.length; i++) {
-          this.displayMarker(data[i]);
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
-
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        this.map.setBounds(bounds);
-      }
     },
      displayMarkerclick(place,deallist) {
       // 마커를 생성하고 지도에 표시합니다
-      console.log(deallist);
-      var marker = new kakao.maps.Marker({
-        map: this.map,
+      console.log(deallist.length +" 개 들어옴 ");
+      
+        var imageSrc = `https://icongr.am/material/numeric-${deallist.length}-circle-outline.svg?size=128&color=currentColor`, // 마커이미지의 주소입니다    
+            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+        var marker = new kakao.maps.Marker({
+            map:this.map,
         position: new kakao.maps.LatLng(place.y, place.x),
-      });
-      //  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+        image: markerImage // 마커이미지 설정 
+        });
+    //   var marker = new kakao.maps.Marker({
+    //     map: this.map,
+    //     position: new kakao.maps.LatLng(place.y, place.x),
+    //   });
+
       var infowindow = new kakao.maps.InfoWindow({
         zIndex: 1,
         content:
           `<div id="temp" @click="getdeallist(deallist)" style="padding:5px; font-size:12px;">
           ${place.place_name} 
           </div>`,
+        //   `<div id="temp" @click="getdeallist(deallist)" style="padding:5px; font-size:12px;">
+        //   ${place.place_name} 
+        //   </div>`,
       });
       //this.markers=marker;
       // 마커에 클릭이벤트를 등록합니다
@@ -290,10 +266,10 @@ export default {
          this.markers.push(marker);
         this.infowindows.push(infowindow);
 
-          infowindow.open(this.map, marker);  
+          
           kakao.maps.event.addListener(marker, 'click', ()=> {
           // 마커 위에 인포윈도우를 표시합니다
-         
+         infowindow.open(this.map, marker);  
           this.getDealListDragger(deallist);
 
     });
@@ -345,7 +321,4 @@ export default {
 </script>
 <style>
 
-#map{
-
-}
 </style>
