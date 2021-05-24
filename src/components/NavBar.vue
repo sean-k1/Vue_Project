@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="font-weight-bold"
         ><router-link to="/" class="black--text" style="text-decoration: none"
-          >VueTube</router-link
+          >WonSik House</router-link
         ></v-toolbar-title
       >
       <v-spacer></v-spacer>
@@ -21,95 +21,109 @@
       ></v-text-field>
 
       <v-spacer></v-spacer>
-      <v-menu offsetY>
-        <template v-slot:activator="{ on: menu }">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on: tooltip }">
-              <v-btn icon v-on="{ ...tooltip, ...menu }"
-                ><v-icon size="25">mdi-video-plus</v-icon></v-btn
-              >
+      <div v-if="isLogin">
+        <v-menu offset-y left>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              small
+              color="blue"
+              depressed
+              fab
+              v-on="on"
+              class="white--text"
+            >
+              T
+            </v-btn>
+          </template>
+
+          <v-card>
+            <v-list>
+              <v-list-item>
+                <v-list-item-avatar>
+                  <img :src="`https://randomuser.me/api/portraits/men/4.jpg`" />
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Tech Reagan</v-list-item-title>
+                  <v-list-item-subtitle
+                    >techreagan@gmail.com</v-list-item-subtitle
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
+            <v-divider></v-divider>
+
+            <v-list>
+              <v-list-item router to="/board">
+                <v-list-item-icon>
+                  <v-icon>mdi-account-box</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Your channel</v-list-item-title>
+              </v-list-item>
+              <v-list-item router to="/studio">
+                <v-list-item-icon>
+                  <v-icon>mdi-youtube-studio</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>VueTube Studio</v-list-item-title>
+              </v-list-item>
+              <v-list-item router to="/signin">
+                <v-list-item-icon>
+                  <v-icon>mdi-login-variant</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Sign out</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-menu>
+      </div>
+      <div v-else>
+        <v-row justify="center">
+          <v-dialog v-model="dialog" persistent max-width="600px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="primary" dark v-bind="attrs" v-on="on">
+                Login
+              </v-btn>
             </template>
-            <span>Create a video and more</span>
-          </v-tooltip>
-        </template>
-        <v-list>
-          <v-list-item router to="/studio">
-            <v-list-item-icon class="mr-3"
-              ><v-icon>mdi-play-box-outline</v-icon></v-list-item-icon
-            >
-            <v-list-item-title>Upload video</v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-icon class="mr-3"
-              ><v-icon>mdi-access-point</v-icon></v-list-item-icon
-            >
-            <v-list-item-title>Go live</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Welcome WonSik House</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12">
+                      <v-text-field
+                        label="I D"
+                        model="login.userId"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        label="Password"
+                        type="password"
+                        model="login.userPwd"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="postLogin">
+                  Login
+                </v-btn>
 
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on"> <v-icon size="25">mdi-apps</v-icon></v-btn>
-        </template>
-        <span>VueTube apps</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on" class="mr-7">
-            <v-icon size="25">mdi-bell</v-icon></v-btn
-          >
-        </template>
-        <span>Notifications</span>
-      </v-tooltip>
-
-      <v-menu offset-y left>
-        <template v-slot:activator="{ on }">
-          <v-btn small color="red" depressed fab v-on="on" class="white--text">
-            T
-          </v-btn>
-        </template>
-
-        <v-card>
-          <v-list>
-            <v-list-item>
-              <v-list-item-avatar>
-                <img :src="`https://randomuser.me/api/portraits/men/4.jpg`" />
-              </v-list-item-avatar>
-
-              <v-list-item-content>
-                <v-list-item-title>Tech Reagan</v-list-item-title>
-                <v-list-item-subtitle
-                  >techreagan@gmail.com</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-
-          <v-divider></v-divider>
-
-          <v-list>
-            <v-list-item router to="/channels/10">
-              <v-list-item-icon>
-                <v-icon>mdi-account-box</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Your channel</v-list-item-title>
-            </v-list-item>
-            <v-list-item router to="/studio">
-              <v-list-item-icon>
-                <v-icon>mdi-youtube-studio</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>VueTube Studio</v-list-item-title>
-            </v-list-item>
-            <v-list-item router to="/signin">
-              <v-list-item-icon>
-                <v-icon>mdi-login-variant</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Sign out</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-card>
-      </v-menu>
+                <v-btn color="blue darken-1" text @click="dialog = false">
+                  Close
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-row>
+      </div>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -123,7 +137,7 @@
         <v-list dense nav class="py-0" tag="div">
           <v-list-item
             :class="{
-              'hidden-lg-and-up': $route.name === 'Watch' ? false : true
+              'hidden-lg-and-up': $route.name === 'Watch' ? false : true,
             }"
           >
             <v-app-bar-nav-icon
@@ -158,7 +172,7 @@
                 />
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title class=" font-weight-medium subtitle-2">{{
+                <v-list-item-title class="font-weight-medium subtitle-2">{{
                   item.title
                 }}</v-list-item-title>
               </v-list-item-content>
@@ -185,154 +199,63 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: false,
+    dialog: false,
+    login: {},
     items: [
       {
         header: null,
         pages: [
-          { title: 'Home', link: '/', icon: 'mdi-home' },
-          { title: 'Trending', link: '/trending', icon: 'mdi-fire' },
+          { title: "매물 정보", link: "/", icon: "mdi-home" },
+          { title: "게시판", link: "/board", icon: "mdi-fire" },
           {
-            title: 'Subscriptions',
-            link: '#s',
-            icon: 'mdi-youtube-subscription'
-          }
-        ]
+            title: "회원관리",
+            link: "/adminPage",
+            icon: "",
+          },
+        ],
       },
-      {
-        header: null,
-        pages: [
-          {
-            title: 'Library',
-            link: '#l',
-            icon: 'mdi-play-box-multiple'
-          },
-          {
-            title: 'History',
-            link: '/history',
-            icon: 'mdi-history'
-          },
-          {
-            title: 'Your videos',
-            link: '/channels/ddd',
-            icon: 'mdi-play-box-outline'
-          },
-
-          {
-            title: 'Watch later',
-            link: '#wl',
-            icon: 'mdi-clock'
-          },
-
-          {
-            title: 'Liked videos',
-            link: '#lw',
-            icon: 'mdi-thumb-up'
-          }
-        ]
-      },
-      {
-        header: 'Subscriptions',
-        pages: [
-          {
-            title: 'Traversy Media',
-            link: '#tm',
-            icon: 'mdi-badge-account'
-          },
-          {
-            title: 'The New Boston',
-            link: '#tn',
-            icon: 'mdi-badge-account'
-          },
-          {
-            title: 'Net Ninija',
-            link: '#nn',
-            icon: 'mdi-badge-account'
-          },
-          {
-            title: 'Chris Hawks',
-            link: '#ch',
-            icon: 'mdi-badge-account'
-          }
-        ]
-      },
-      {
-        header: 'MORE FROM VUETUBE',
-        pages: [
-          {
-            title: 'VueTube Premium',
-            link: '#vp',
-            icon: 'mdi-youtube'
-          },
-          {
-            title: 'Gaming',
-            link: '#g',
-            icon: 'mdi-youtube-gaming'
-          },
-          {
-            title: 'Live',
-            link: '#li',
-            icon: 'mdi-access-point'
-          }
-        ]
-      },
-      {
-        header: null,
-        pages: [
-          {
-            title: 'Setting',
-            link: '#sg',
-            icon: 'mdi-cog'
-          },
-          {
-            title: 'Report history',
-            link: '#rh',
-            icon: 'mdi-flag'
-          },
-          {
-            title: 'Help',
-            link: '#hp',
-            icon: 'mdi-help-circle'
-          },
-          {
-            title: 'Send feedback',
-            link: '#f',
-            icon: 'mdi-message-alert'
-          }
-        ]
-      }
     ],
     links: [
-      { text: 'About', link: '#' },
-      { text: 'Press', link: '#' },
-      { text: 'Copyrignt', link: '#' },
-      { text: 'Contact us', link: '#' },
-      { text: 'Creators', link: '#' },
-      { text: 'Advertise', link: '#' },
-      { text: 'Developers', link: '#' },
-      { text: 'Terms', link: '#' },
-      { text: 'Privacy', link: '#' },
-      { text: 'Policy & Safety', link: '#' },
-      { text: 'Test new features', link: '#' }
+      { text: "About", link: "#" },
+      { text: "Press", link: "#" },
+      { text: "Copyrignt", link: "#" },
+      { text: "Contact us", link: "#" },
+      { text: "Creators", link: "#" },
+      { text: "Advertise", link: "#" },
+      { text: "Developers", link: "#" },
+      { text: "Terms", link: "#" },
+      { text: "Privacy", link: "#" },
+      { text: "Policy & Safety", link: "#" },
+      { text: "Test new features", link: "#" },
     ],
-    searchText: ''
+    searchText: "",
   }),
   methods: {
     search() {
-      if (!this.searchText) return
+      if (!this.searchText) return;
       this.$router.push({
-        name: 'Search',
-        query: { 'search-query': this.searchText }
-      })
-    }
+        name: "Search",
+        query: { "search-query": this.searchText },
+      });
+    },
+    postLogin() {
+      this.$store.dispatch("login", this.login).then(() => {
+        alert("환영합니다!");
+      });
+    },
   },
   mounted() {
-    this.drawer = this.$vuetify.breakpoint.mdAndDown ? false : true
-    this.drawer = this.$route.name === 'Watch' ? false : this.drawer
-  }
-}
+    this.drawer = this.$vuetify.breakpoint.mdAndDown ? false : true;
+    this.drawer = this.$route.name === "Watch" ? false : this.drawer;
+  },
+  computed: {
+    ...mapGetters({ userInfo: "userInfo", isLogin: "isLogin" }),
+  },
+};
 </script>
 
 <style lang="scss">

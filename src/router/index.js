@@ -19,7 +19,10 @@ const routes = [
   {
     path: "/board",
     name: "Board",
-    component: Board,
+    components: {
+      NavBar,
+      default: Board
+    },
     redirect:"board/list",
     children:[
       {
@@ -65,7 +68,10 @@ const routes = [
   {
     path:"/adminPage",
     name:"adminPage",
-    component:AdminPage
+    components: {
+      NavBar,
+      default: AdminPage
+    },
   },
   
   {
