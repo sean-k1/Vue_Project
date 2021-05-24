@@ -3,15 +3,7 @@
     <v-container fluid class="pt-0 pb-0 fill-height">
       <v-row class="fill-height">
         <v-col
-          cols="12"
-          sm="12"
-          order="2"
-          order-sm="2"
-          order-md="1"
-          order-lg="1"
-          md="7"
-          lg="7"
-          class="pt-8 pl-8"
+          cols="8"
         >
           <h1 class="title font-weight-medium pb-5">{{ historyType }}</h1>
           <template v-if="historyType == 'Watch History'">
@@ -95,14 +87,7 @@
           </template>
         </v-col>
         <v-col
-          cols="12"
-          sm="12"
-          order="1"
-          order-sm="1"
-          order-md="2"
-          order-lg="2"
-          md="5"
-          lg="5"
+         cols="4"
           :class="[
             'pa-0',
             { 'fill-height': $vuetify.breakpoint.name.smAndDown ? true : false }
