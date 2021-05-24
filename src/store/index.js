@@ -254,6 +254,7 @@ export default new Vuex.Store({
     context.commit("setToken",payload);
   },
   login(context,payload){
+    console.log(payload);
     boardhttp
     .post("/login", payload)
     .then(({data})=>{

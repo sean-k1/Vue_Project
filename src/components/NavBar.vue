@@ -32,7 +32,7 @@
               v-on="on"
               class="white--text"
             >
-              T
+              {{ userInfo.userId }}
             </v-btn>
           </template>
 
@@ -44,10 +44,10 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>Tech Reagan</v-list-item-title>
-                  <v-list-item-subtitle
-                    >techreagan@gmail.com</v-list-item-subtitle
-                  >
+                  <v-list-item-title>{{ userInfo.userName }}</v-list-item-title>
+                  <v-list-item-subtitle>{{
+                    userInfo.email
+                  }}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -59,7 +59,7 @@
                 <v-list-item-icon>
                   <v-icon>mdi-account-box</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Your channel</v-list-item-title>
+                <v-list-item-title>회원 정보</v-list-item-title>
               </v-list-item>
               <v-list-item router to="/studio">
                 <v-list-item-icon>
@@ -67,7 +67,7 @@
                 </v-list-item-icon>
                 <v-list-item-title>VueTube Studio</v-list-item-title>
               </v-list-item>
-              <v-list-item router to="/signin">
+              <v-list-item @click="logOut">
                 <v-list-item-icon>
                   <v-icon>mdi-login-variant</v-icon>
                 </v-list-item-icon>
@@ -95,7 +95,7 @@
                     <v-col cols="12">
                       <v-text-field
                         label="I D"
-                        model="login.userId"
+                        v-model="login.userId"
                         required
                       ></v-text-field>
                     </v-col>
@@ -103,7 +103,7 @@
                       <v-text-field
                         label="Password"
                         type="password"
-                        model="login.userPwd"
+                        v-model="login.userPwd"
                         required
                       ></v-text-field>
                     </v-col>
@@ -154,7 +154,7 @@
               >{{ parentItem.header }}</v-subheader
             >
             <v-list-item
-              v-for="(item, i) in parentItem.pages"
+              v-for="item in parentItem.pages"
               :key="item.title"
               link
               class="mb-0"
@@ -163,14 +163,10 @@
               exact
               active-class="active-item"
             >
-              <v-list-item-icon v-if="parentItem.header !== 'Subscriptions'">
+              <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
-              <v-list-item-avatar v-else class="mr-5">
-                <img
-                  :src="`https://randomuser.me/api/portraits/men/${i}.jpg`"
-                />
-              </v-list-item-avatar>
+
               <v-list-item-content>
                 <v-list-item-title class="font-weight-medium subtitle-2">{{
                   item.title
@@ -210,11 +206,11 @@ export default {
         header: null,
         pages: [
           { title: "매물 정보", link: "/", icon: "mdi-home" },
-          { title: "게시판", link: "/board", icon: "mdi-fire" },
+          { title: "게시판", link: "/board/list", icon: "mdi-fire" },
           {
             title: "회원관리",
             link: "/adminPage",
-            icon: "",
+            icon: "mdi-account-cog",
           },
         ],
       },
@@ -234,6 +230,9 @@ export default {
     ],
     searchText: "",
   }),
+  created() {
+    this.$store.dispatch("getLoginState");
+  },
   methods: {
     search() {
       if (!this.searchText) return;
@@ -246,6 +245,14 @@ export default {
       this.$store.dispatch("login", this.login).then(() => {
         alert("환영합니다!");
       });
+    },
+    logOut() {
+      this.$store.dispatch("logout").then(() => {
+        alert("로그아웃 되었습니다 !");
+        this.isLogin = false;
+        window.location.reload();
+      });
+      console.log(this.isLogin);
     },
   },
   mounted() {
