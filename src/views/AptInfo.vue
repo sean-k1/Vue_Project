@@ -1,8 +1,7 @@
 
 <template>
-<div>
-  
-  	<div v-if="!aptInfos.bList">
+  <div>
+    <div v-if="!deallist.bList">
 				<div class=" bd-sidebar">
 					<h4 class=" font-weight-bold">매매 정보</h4>
 					<ul class="nav" id="sidebar_deal_list ">
@@ -13,7 +12,7 @@
 				</div>
             </div>
     <div v-else>
-    <h4 class=" font-weight-bold">매매 정보</h4>
+      <h4 class=" font-weight-bold">매매 정보</h4>
 				
              <table class="table table-bordered table-condensed">
                 <!-- <colgroup>
@@ -24,7 +23,7 @@
             <tr>
              
             </tr>
-							<apt-row v-for="(apt,idx) in aptInfos.bList" :key="idx" :apt="apt">
+							<apt-row v-for="(apt,idx) in deallist.bList" :key="idx" :apt="apt">
 							</apt-row>
               </table>
 				
@@ -39,28 +38,22 @@
 <script>
 
 
-//import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import AptRow from '../components/AptRow.vue';
+
 export default {
   name: "list",
   components: {
     AptRow,
-  },
-   props: {
-    aptInfos:{type:Object},
   },
     AptRowdata: function () {
     return {
       apt:[{curpage:"",}],
     };
   },
-  created() {
-    //this.$store.dispatch("getAptInfo",this.apt);// list들 받아오기 
-    
-  },
-  computed : {
-   // ...mapGetters(['aptInfos','aptStartPage','aptEndPage','aptCurPage','aptTotalPage']),
-  
+
+  computed: {
+    ...mapGetters(["deallist"]),
   },
 
 
@@ -83,8 +76,5 @@ export default {
 
 
 <style>
-body{
-
-}
 
 </style>

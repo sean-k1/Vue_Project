@@ -1,17 +1,17 @@
 <template>
   <div id="makemap">    
-    
-
     <div id="map"></div>
      </div>
 </template>
 <script>
 import { API_KEY } from '../views/Maps/API_KEY.js'
+import kakaohttp from "../util/kakaohttp";
+import boardhttp from "../util/Boardhttp";
+import { mapGetters } from "vuex";
 export default {
     
   name: "app",
   components : {
- 
   },
   data() {
     return {
@@ -52,9 +52,10 @@ export default {
    
   }
   ,computed: {
-   // ...mapGetters(["station","deallist"]),
+    ...mapGetters(["station","deallist"]),
   },
   methods: {
+
 
 
     initMap() {
@@ -86,21 +87,264 @@ export default {
         
         // 영역정보의 북동쪽 정보를 얻어옵니다 
         this.neLatlng = bounds.getNorthEast();
+
+        this.matcharea();
+        this.showstation();
+        this.showdeallist();
         
     
 });
       this.geocoder = new kakao.maps.services.Geocoder();
     },
-  },
+    matcharea(){
+       let nela=this.neLatlng.La;
+       let swla =this.swLatlng.La;
+      let nema=(this.neLatlng.Ma);
+     let swma=(this.swLatlng.Ma);
+      boardhttp.get("/house/matcharea?swLat="+swma+"&swlng="+swla+"&neLat="+nema+"&nelng="+nela)
+      .then(({ data }) => {
+        this.showdeallist(data);
+        
+      })
+  
+
+      
+    }
+
+
+    ,removeMarker() {
+    
+      console.log("remvoe marker");
+
+      console.log(this.markers);
+      for ( var i = 0; i <this.markers.length; i++ ) {
+          this.markers[i].setMap(null);
+          this.infowindows[i].setMap(null);
+      }
+      this.markers = [];
+      this.infowindows=[];
+      console.log(this.markers +" 지움 ");
+
+    },
+
+
+
+    showdeallist(areadata){
+      console.log(areadata);
+     // this.removeMarker();
+      for(let key in areadata) {
+        // for(let i=0; i<data[key].length;i++){
+        //  kakaohttp.get(`keyword.json?query=` + data[key][i].dong +" "+data[key][i].name).then(({ markerposition }) => {
+        //    if(markerposition.documents.length!=0){
+        //       console.log(markerposition.documents);
+        //         break;
+        //    }
+ 
+        // });
+          let nela=this.neLatlng.La;
+       let swla =this.swLatlng.La;
+      let nema=(this.neLatlng.Ma);
+     let swma=(this.swLatlng.Ma);
+        let searchquery= areadata[key][0].dong +" "+areadata[key][0].name.replace("("," ").replace(")"," ");
+
+         kakaohttp.get(`keyword.json?query=` + searchquery).then(({ data }) => {
+              if(data.documents.length>0){
+                    let types = data.documents[0].category_name.split(" > ");
+                   if(searchquery.includes(data.documents[0].place_name)  && types[0] == "부동산" && types[1] == "주거시설"){
+                     if(nela>=data.documents[0].x&&swla<=data.documents[0].x && nema>=data.documents[0].y && swma<=data.documents[0].y){
+                        this.displayMarkerclick(data.documents[0],areadata[key] );
+                        
+                     }
+                   }
+
+                   }
+              });
+      }
+
+   
+
+
+      // kakaohttp.get(`keyword.json?query=` + query).then(({ data }) => {
+
+       //});
+
+    },
+    showstation(){
+
+    }
+
+    
+
+    ,gethttp(query) {
+      this.removeMarker();
+      this.$store.dispatch("getStation", {});
+      this.aptlist={};
+      this.station_temp={};
+      var bounds = new kakao.maps.LatLngBounds();
+      kakaohttp.get(`keyword.json?query=` + query).then(({ data }) => {
+        console.log(data + " data들어옴");
+        console.log(data);
+        let stationidx = 0;
+        let aptidx = 0;
+        let flag = false;
+        console.log(data.documents);
+        for (var i = 0; i < data.documents.length; i++) {
+          let types = data.documents[i].category_name.split(" > ");
+          if (types[0] == "교통,수송" && types[1] == "지하철,전철") {
+           
+            console.log("지하철입니다");
+            this.station_temp[stationidx++] = {"palce_name":data.documents[i].place_name,"address_name": data.documents[i].address_name};
+            this.displayMarker(data.documents[i]);
+            bounds.extend(
+              new kakao.maps.LatLng(data.documents[i].y, data.documents[i].x)
+            );
+            flag = true;
+            console.log(this.station);
+          }
+          if (types[0] == "부동산" && types[1] == "주거시설") {
+            if (types[2] == "오피스텔") {
+              this.aptlist[aptidx++] ={"place_name":data.documents[i].place_name,"address_name": data.documents[i].address_name};
+              this.displayMarker(data.documents[i]);
+              bounds.extend(
+                new kakao.maps.LatLng(data.documents[i].y, data.documents[i].x)
+              );
+              console.log("오피스텔입니다");
+              flag = true;
+            }
+            if (types[2] == "아파트") {
+              this.aptlist[aptidx++] = {"place_name":data.documents[i].place_name,"address_name": data.documents[i].address_name};
+              this.displayMarker(data.documents[i]);
+              bounds.extend(
+                new kakao.maps.LatLng(data.documents[i].y, data.documents[i].x)
+              );
+              console.log("아파트입니다");
+              flag = true;
+            } else {
+              this.displayMarker(data.documents[i]);
+              this.aptlist[aptidx++] = {"place_name":data.documents[i].place_name,"address_name": data.documents[i].address_name};
+              bounds.extend(
+                new kakao.maps.LatLng(data.documents[i].y, data.documents[i].x)
+              );
+              console.log("기타시설입니다");
+              flag = true;
+            }
+          }
+  
+
+        }
+         if (flag) {
+            this.map.setBounds(bounds);
+            this.$store.dispatch("getStation", this.station_temp);
+          }
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+      });
+    },
+
+    searchPlaces() {
+      if (!this.search.replace(/^\s+|\s+$/g, "")) {
+        alert("키워드를 입력해주세요!");
+        return false;
+      }
+      this.gethttp(this.search);
+
+      // ps = new kakao.maps.services.Places();
+      // ps.keywordSearch(this.search, this.placesSearchCB);
+      //console.log(ps);
+    },
+    placesSearchCB(data, status, pagination) {
+      if (status === kakao.maps.services.Status.OK) {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        var bounds = new kakao.maps.LatLngBounds();
+        console.log(pagination);
+        for (var i = 0; i < data.length; i++) {
+          this.displayMarker(data[i]);
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        }
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        this.map.setBounds(bounds);
+      }
+    },
+     displayMarkerclick(place,deallist) {
+      // 마커를 생성하고 지도에 표시합니다
+      console.log(deallist);
+      var marker = new kakao.maps.Marker({
+        map: this.map,
+        position: new kakao.maps.LatLng(place.y, place.x),
+      });
+      //  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+      var infowindow = new kakao.maps.InfoWindow({
+        zIndex: 1,
+        content:
+          `<div id="temp" @click="getdeallist(deallist)" style="padding:5px; font-size:12px;">
+          ${place.place_name} 
+          </div>`,
+      });
+      //this.markers=marker;
+      // 마커에 클릭이벤트를 등록합니다
+      let latlng= place.y+" "+place.x;
+      if (!this.placesxy.includes(latlng)){
+         //infowindow.open(this.map, marker);
+         this.markers.push(marker);
+        this.infowindows.push(infowindow);
+
+          infowindow.open(this.map, marker);  
+          kakao.maps.event.addListener(marker, 'click', ()=> {
+          // 마커 위에 인포윈도우를 표시합니다
+         
+          this.getDealListDragger(deallist);
+
+    });
+      }
+     },
+
+
+
+    displayMarker(place) {
+      // 마커를 생성하고 지도에 표시합니다
+
+      var marker = new kakao.maps.Marker({
+        map: this.map,
+        position: new kakao.maps.LatLng(place.y, place.x),
+      });
+      //  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+      var infowindow = new kakao.maps.InfoWindow({
+        zIndex: 1,
+        content:
+          '<div style="padding:5px; font-size:12px;">' +
+          place.place_name +
+          "</div>",
+      });
+      //this.markers=marker;
+      // 마커에 클릭이벤트를 등록합니다
+      let latlng= place.y+" "+place.x;
+      if (!this.placesxy.includes(latlng)){
+         //infowindow.open(this.map, marker);
+         this.markers.push(marker);
+        this.infowindows.push(infowindow);
+          infowindow.open(this.map, marker);  
+
+      }
+
+    },
+    getdeallist(item){
+      console.log(item+" 들어옴 ");
+      
+      this.$store.dispatch("getdeallist", item);
+    },
+     getDealListDragger(item){
+       console.log(item);
+       let temp={"bList":item};
+      this.$store.dispatch("getDealListDragger", temp);
+  }
+  }
  
 };
 </script>
 <style>
-#deal{
-  float:left;
-  width:30%;
-height: 1000px;
-}
+
 #map{
 
 }

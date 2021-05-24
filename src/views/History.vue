@@ -15,7 +15,8 @@
             { 'fill-height': $vuetify.breakpoint.name.smAndDown ? true : false }
           ]"
         >
-         검색 내역 area
+        거래내역
+         <aptinfo> </aptinfo>
         </v-col>
       </v-row>
     </v-container>
@@ -24,10 +25,13 @@
 
 <script>
 import KakaoMaps from "@/components/KakaoMaps.vue";
+import AptInfo from "../views/AptInfo.vue";
 export default {
    name: "search",
     components: {
     kakaomap: KakaoMaps,
+    aptinfo:AptInfo,
+
   },
   data: () => ({
   
