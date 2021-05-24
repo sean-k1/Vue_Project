@@ -1,6 +1,5 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import NavBar from '@/components/NavBar.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
 import BoardList from "../views/list.vue";
 import BoardRead from "../views/read.vue";
 import BoardWrite from "../views/write.vue";
@@ -12,10 +11,10 @@ import AdminPage from "@/views/adminPage.vue";
 import About from "../views/About.vue";
 import userState from "@/components/userState.vue";
 
-
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
+
   {
     path: "/board",
     name: "Board",
@@ -66,24 +65,13 @@ const routes = [
     path:"/adminPage",
     name:"adminPage",
     component:AdminPage
-  },
-  
-  {
-    path: '/',
-    name: 'History',
-    components: {
-      NavBar,
-      default: () =>
-        import(/* webpackChunkName: "video" */ '../views/History.vue')
-    }
-  },
-  
-]
+  }
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
