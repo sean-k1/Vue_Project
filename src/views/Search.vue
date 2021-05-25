@@ -8,6 +8,7 @@
     dense
     v-model="search"
     @click:append="temp"
+    @keyup.enter="temp"
     class="hidden-sm-and-down"
   ></v-text-field>
 </template>

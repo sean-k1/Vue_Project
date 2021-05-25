@@ -3,11 +3,11 @@
     <div>
       <span v-if="searchResult.stationlist">
         <template>
-          <v-card class="mx-auto" max-width="344" outlined>
+          <v-card class="mx-auto" max-width="100%" outlined>
             <v-list-item three-line>
               <v-list-item-content>
                 <div class="overline mb-4">
-                  지하철역
+                  <h2>지하철역</h2>
                 </div>
                 <search-row
                   class="inline-block"
@@ -25,11 +25,11 @@
 
       <span v-if="searchResult.aptlist">
         <template>
-          <v-card class="mx-auto" max-width="344" outlined>
+          <v-card class="mx-auto" max-width="100%" outlined>
             <v-list-item three-line>
               <v-list-item-content>
                 <div class="overline mb-4">
-                  아파트
+                  <h2>아파트</h2>
                 </div>
                 <search-row
                   class="inline-block"
@@ -46,11 +46,11 @@
       </span>
       <span v-if="searchResult.officelist">
         <template>
-          <v-card class="mx-auto" max-width="344" outlined>
+          <v-card class="mx-auto" max-width="100%" outlined>
             <v-list-item three-line>
               <v-list-item-content>
                 <div class="overline mb-4">
-                  오피스텔
+                  <h2>오피스텔</h2>
                 </div>
                 <search-row
                   class="inline-block"
@@ -65,13 +65,13 @@
           </v-card>
         </template>
       </span>
+
+      <span v-else> </span>
     </div>
     <div v-if="!deallist.bList">
       <div class=" bd-sidebar">
         <v-simple-table>
-          <template v-slot:default>
-            해당하는 건물이 없습니다.
-          </template>
+          <template v-slot:default> </template>
         </v-simple-table>
         <br />
       </div>
