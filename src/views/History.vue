@@ -5,7 +5,12 @@
         <v-col
           cols="9"
         >
-         <kakaomap ></kakaomap>
+ 
+  
+
+         <kakaomap >
+           
+         </kakaomap>
          maps area
         </v-col>
         <v-col

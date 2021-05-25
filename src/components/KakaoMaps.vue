@@ -1,7 +1,9 @@
 <template>
   <div id="makemap">    
     <div id="map"></div>
+      <v-icon>mdi-filter</v-icon>
      </div>
+   
 </template>
 <script>
 import { API_KEY } from '../views/Maps/API_KEY.js'
@@ -52,6 +54,11 @@ export default {
     ...mapGetters(["station","deallist"]),
   },
   methods: {
+     handleClick(e) {
+      if (e.target.matches('.clickevent')) {
+        console.log('Got a click on .play-video or a child element')
+      }
+    },
 
 
 
@@ -229,52 +236,57 @@ export default {
     },
      displayMarkerclick(place,deallist) {
       // 마커를 생성하고 지도에 표시합니다
+      // var infowindow = new kakao.maps.InfoWindow({
+      //   zIndex: 1,
+      // });
+      console.log(deallist);
+      // var content = '<div class="customoverlay">' +
+      //               '<a href="#" @click='+getDealListDragger(deallist)+'target="_blank">' +
+      //               '<span class="count">'+deallist.length+ '</span>' +
+      //               '<span class="title">'+place.place_name+'</span>' +
+      //               '</a></div>';
+       var content = `<div class="customoverlay">
+                    <a href="#" v-on:click.native='getDealListDragger(${deallist})' class="clickevent">
+                    <span class="count">${deallist.length}</span>
+                    <span class="title">${place.place_name}</span>
+                    </a></div>;`
+  
+      //infowindow.setContent(`<div class="customoverlay"><p> ${place.place_name} </p>  <span class="title">구의야구공원</span></div>'`)
       console.log(deallist.length +" 개 들어옴 ");
-      
-        // var imageSrc = `https://icongr.am/material/numeric-${deallist.length}-circle-outline.svg?size=128&color=currentColor`, // 마커이미지의 주소입니다    
-        //     imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-        //     imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-        //var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-
-        // var marker = new kakao.maps.Marker({
-        //     map:this.map,
-        // position: new kakao.maps.LatLng(place.y, place.x),
-        // image: markerImage // 마커이미지 설정 
-        // });
-      var marker = new kakao.maps.Marker({
-        map: this.map,
-        position: new kakao.maps.LatLng(place.y, place.x),
-      });
-
-      var infowindow = new kakao.maps.InfoWindow({
-        zIndex: 1,
-        content:
-          `<div 
-          <div id="temp" @click="getdeallist(deallist)" style="padding:5px; font-size:12px;">
-          ${place.place_name} 
-          </div>`,
-        //   `<div id="temp" @click="getdeallist(deallist)" style="padding:5px; font-size:12px;">
-        //   ${place.place_name} 
-        //   </div>`,
-      });
-      //this.markers=marker;
-      // 마커에 클릭이벤트를 등록합니다
       let latlng= place.y+" "+place.x;
       if (!this.placesxy.includes(latlng)){
          //infowindow.open(this.map, marker);
-         this.markers.push(marker);
-        this.infowindows.push(infowindow);
+        //   var marker = new kakao.maps.Marker({
+        //     map: this.map,
+        //     position: new kakao.maps.LatLng(place.y, place.x),
+            
+        // });
 
+          var customOverlay = new kakao.maps.CustomOverlay({
+            map: this.map,
+            position: new kakao.maps.LatLng(place.y-0.00018, place.x),
+            content: content,
+            yAnchor: 1 
+});
+         // marker.setVisible(false);
+         // this.markers.push(marker);
+         // this.infowindows.push(infowindow);
+          this.placesxy.push(latlng);
+          this.placesxy.push(customOverlay);
           
-          kakao.maps.event.addListener(marker, 'click', ()=> {
-          // 마커 위에 인포윈도우를 표시합니다
-         infowindow.open(this.map, marker);  
-          this.getDealListDragger(deallist);
+          
+          //infowindow.open(this.map, marker);   
+    //       kakao.maps.event.addListener(marker, 'click', ()=> {
 
-    });
+    //       this.getDealListDragger(deallist);
+
+    // });
       }
+      
+
+      //this.markers=marker;
+      // 마커에 클릭이벤트를 등록합니다
+  
      },
 
 
@@ -321,5 +333,16 @@ export default {
 };
 </script>
 <style>
-
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left; }
+.customoverlay .title {display:inline-flex;text-align:center;background:#fff;margin-right:35px;padding:12px 10px 15px 15px;font-size:14px;font-weight:bold;}
+.customoverlay .count {display:inline-flex;text-align:center; background : #fff;font-size:20px;font-weight:bold;padding:13px 15px 17px 17px;margin-right:-5px;}
+/* .customoverlay a {display:inline-block;text-decoration:none; color:black} */
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+/* .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;} */
+/* .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')} */
+/* .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')} */
 </style>
+

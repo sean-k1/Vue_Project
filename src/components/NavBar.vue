@@ -8,6 +8,7 @@
         ></v-toolbar-title
       >
       <v-spacer></v-spacer>
+      
       <v-text-field
         flat
         hide-details
@@ -15,7 +16,7 @@
         placeholder="Search"
         outlined
         dense
-        v-model="searchText"
+        v-model="searchText "
         @click:append="search"
         class="hidden-sm-and-down"
       ></v-text-field>
