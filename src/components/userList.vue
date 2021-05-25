@@ -94,7 +94,6 @@ export default {
 
       this.$store.dispatch("adminPutUser", this.modify_user);
       this.isModify = !this.isModify;
-      alert("수정 완료");
     },
     deleteBtn() {
       console.log(this.user);

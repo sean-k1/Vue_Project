@@ -33,6 +33,8 @@ export default new Vuex.Store({
     officelist: {}},
     centerMap: {},
   },
+    centerMap: {},
+  },
   getters:{
     boards(state){
       return state.boards;
@@ -314,11 +316,18 @@ export default new Vuex.Store({
     ;
   },
   modifyUser(context,payload){
+    console.log(JSON.stringify(payload));
     tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
     tokenhttp
     .put("/modify",payload)
     .then(({data})=>{
-      context.commit("setUserInfo",data);
+      if(data === "success")
+        this.dispatch("getUser",payload).then(()=>{
+          alert("수정 완료");
+          window.location.reload();
+        });
+      
+
     })
   },
   deleteUser(context){

@@ -4,8 +4,8 @@
       <v-col align="center">
         <v-avatar color="primary" size="105">
           <img
-            :src="`http://localhost:9999/happyhouse/img/test${userInfo.profile_img}.jpg
-                    `"
+            :src="`http://localhost:9999/happyhouse/img/test${copyUserInfo.profile_img}.jpg
+             `"
           />
         </v-avatar>
       </v-col>
@@ -171,7 +171,7 @@ export default {
       });
     },
     img_choice(num) {
-      this.copyUserInfo.img = num;
+      this.copyUserInfo.profile_img = num;
       this.imageDialog = false;
     },
   },
@@ -181,7 +181,6 @@ export default {
     copyUserInfo() {
       let temp = JSON.parse(JSON.stringify(this.userInfo));
       temp.userPwd = "";
-      temp.img = 1;
       return temp;
     },
   },

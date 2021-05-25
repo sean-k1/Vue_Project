@@ -43,11 +43,11 @@
               <v-pagination
                 v-model="page"
                 :length="endPage - startPage + 1"
-                @input="next"
+                @input="movePage"
                 circle
               ></v-pagination>
             </div>
-            <li
+            <!-- <li
               class="page-item"
               v-for="i in range(startPage, endPage)"
               v-bind:key="i"
@@ -58,7 +58,7 @@
               <v-btn color="#E0E0E0" href="#" @click="movePage(endPage + 1)"
                 >Next</v-btn
               >
-            </li>
+            </li> -->
           </ul>
         </nav>
       </div>
@@ -109,8 +109,16 @@ export default {
       }
       return list;
     },
-    next(page) {
+    movePage(page) {
       this.$store.dispatch("movePage", page);
+    },
+    next() {
+      var page = this.$store.getters.endPage;
+      this.$store.dispatch("movePage", page + 1);
+    },
+    previous() {
+      var page = this.$store.getters.startPage;
+      this.$store.dispatch("movePage", page - 1);
     },
   },
 };
