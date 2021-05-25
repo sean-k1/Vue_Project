@@ -38,7 +38,9 @@ export default {
         let officeidx = 0;
         let flag = false;
         console.log(data.documents);
-
+        this.stationlist = {};
+        this.aptlist = {};
+        this.officelist = {};
         for (var i = 0; i < data.documents.length; i++) {
           let types = data.documents[i].category_name.split(" > ");
           if (types[0] == "교통,수송" && types[1] == "지하철,전철") {
@@ -46,8 +48,8 @@ export default {
             this.stationlist[stationidx++] = {
               place_name: data.documents[i].place_name,
               address_name: data.documents[i].address_name,
-              x: data.documents[i].place_x,
-              y: data.documents[i].place_y,
+              x: data.documents[i].x,
+              y: data.documents[i].y,
             };
 
             flag = true;
@@ -58,8 +60,8 @@ export default {
               this.officelist[officeidx++] = {
                 place_name: data.documents[i].place_name,
                 address_name: data.documents[i].address_name,
-                x: data.documents[i].place_x,
-                y: data.documents[i].place_y,
+                x: data.documents[i].x,
+                y: data.documents[i].y,
               };
 
               console.log("오피스텔입니다");
@@ -69,8 +71,8 @@ export default {
               this.aptlist[aptidx++] = {
                 place_name: data.documents[i].place_name,
                 address_name: data.documents[i].address_name,
-                x: data.documents[i].place_x,
-                y: data.documents[i].place_y,
+                x: data.documents[i].x,
+                y: data.documents[i].y,
               };
 
               console.log("아파트입니다");
@@ -79,8 +81,8 @@ export default {
               this.aptlist[aptidx++] = {
                 place_name: data.documents[i].place_name,
                 address_name: data.documents[i].address_name,
-                x: data.documents[i].place_x,
-                y: data.documents[i].place_y,
+                x: data.documents[i].x,
+                y: data.documents[i].y,
               };
 
               console.log("기타시설입니다");

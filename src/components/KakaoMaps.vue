@@ -13,7 +13,9 @@
         </v-btn>
       </v-toolbar> -->
     </div>
+
     <v-icon>mdi-filter</v-icon>
+    {{ centerMap.x }}
   </div>
 </template>
 <script>
@@ -57,17 +59,24 @@ const KakaoMaps = {
       document.head.appendChild(script);
     }
   },
-  updated: {},
   computed: {
-    ...mapGetters(["station", "deallist"]),
+    ...mapGetters(["station", "deallist", "centerMap"]),
+  },
+  watch: {
+    centerMap: function(val) {
+      console.log(val);
+      console.log(val.x);
+      this.removeMarker();
+      var bounds = new kakao.maps.LatLngBounds();
+      bounds.extend(new kakao.maps.LatLng(val.y, val.x));
+      this.map.setBounds(bounds);
+      this.displayMarker(val);
+    },
   },
   methods: {
-    handleClick(e) {
-      if (e.target.matches(".clickevent")) {
-        console.log("Got a click on .play-video or a child element");
-      }
+    fromBar(newDrawer) {
+      console.log(newDrawer);
     },
-
     initMap() {
       let container = document.getElementById("map");
       let options = {
@@ -122,11 +131,11 @@ const KakaoMaps = {
       console.log(this.markers);
       for (var i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(null);
-        this.infowindows[i].setMap(null);
+        // this.infowindows[i].setMap(null);
       }
       this.markers = [];
-      this.infowindows = [];
-      console.log(this.markers + " 지움 ");
+      // this.infowindows = [];
+      //console.log(this.markers + " 지움 ");
     },
 
     showdeallist(areadata) {
@@ -317,18 +326,18 @@ const KakaoMaps = {
         position: new kakao.maps.LatLng(place.y, place.x),
       });
       //  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-      var infowindow = new kakao.maps.InfoWindow({
-        zIndex: 1,
-        content: '<div style="padding:5px; font-size:12px;">' + place.place_name + "</div>",
-      });
+      // var infowindow = new kakao.maps.InfoWindow({
+      //   zIndex: 1,
+      //   content: '<div style="padding:5px; font-size:12px;">' + place.place_name + "</div>",
+      // });
       //this.markers=marker;
       // 마커에 클릭이벤트를 등록합니다
       let latlng = place.y + " " + place.x;
       if (!this.placesxy.includes(latlng)) {
         //infowindow.open(this.map, marker);
         this.markers.push(marker);
-        this.infowindows.push(infowindow);
-        infowindow.open(this.map, marker);
+        // this.infowindows.push(infowindow);
+        // infowindow.open(this.map, marker);
       }
     },
     getdeallist(item) {

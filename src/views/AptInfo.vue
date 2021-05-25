@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <span v-if="searchResult.stationlist">
+      <span v-if="Object.keys(searchResult.stationlist).length != 0">
         <template>
           <v-card class="mx-auto" max-width="100%" outlined>
             <v-list-item three-line>
@@ -23,7 +23,7 @@
         </template>
       </span>
 
-      <span v-if="searchResult.aptlist">
+      <span v-if="Object.keys(searchResult.aptlist).length != 0">
         <template>
           <v-card class="mx-auto" max-width="100%" outlined>
             <v-list-item three-line>
@@ -44,7 +44,7 @@
           </v-card>
         </template>
       </span>
-      <span v-if="searchResult.officelist">
+      <span v-if="Object.keys(searchResult.officelist).length != 0">
         <template>
           <v-card class="mx-auto" max-width="100%" outlined>
             <v-list-item three-line>

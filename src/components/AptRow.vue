@@ -1,4 +1,22 @@
 <template>
+  <!-- <div>
+    <v-card-title>
+      {{ apt.name }}
+    </v-card-title>
+
+    <v-card-subtitle>
+      {{ apt.dealAmount }}
+    </v-card-subtitle>
+    <v-card-subtitle>
+      {{ apt.buildYear }}
+    </v-card-subtitle>
+    <v-card-subtitle>
+      {{ apt.dealYear }}
+    </v-card-subtitle>
+    <v-card-subtitle>
+      {{ apt.dong }}
+    </v-card-subtitle>
+  </div> -->
   <tr>
     <td>{{ apt.dong }}</td>
     <td>{{ apt.name }}</td>

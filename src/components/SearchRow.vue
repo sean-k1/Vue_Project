@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list-item-title class="headline mb-1">
-      <v-btn depressed elevation="2" raised @click="`setCenterMap(${place.x},${place.y})`">
+      <v-btn depressed elevation="2" raised @click="setCenterMap(place.x, place.y)">
         {{ place.place_name }}
       </v-btn>
     </v-list-item-title>
@@ -18,14 +18,22 @@ export default {
     place: { type: Object },
   },
   computed: {},
-  created() {},
   methods: {
     setCenterMap(x, y) {
+      console.log("enter x y");
+
       let temp = {
         x: x,
         y: y,
       };
-      this.$store.dispatch("CenterMap", temp);
+      let searchResult = {
+        stationlist: {},
+        aptlist: {},
+        officelist: {},
+      };
+
+      this.$store.dispatch("searchResult", searchResult);
+      this.$store.dispatch("centerMap", temp);
     },
   },
 };

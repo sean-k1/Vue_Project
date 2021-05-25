@@ -28,7 +28,9 @@ export default new Vuex.Store({
     station: {},
     deallist: {},
     isLogin: "",
-    searchResult: [],
+    searchResult: { stationlist: {},
+    aptlist: {},
+    officelist: {}},
     centerMap: {},
   },
   getters:{
