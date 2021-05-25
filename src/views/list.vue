@@ -2,6 +2,10 @@
 
 <template>
   <div>
+    {{ startPage }}
+    {{ endPage }}
+    {{ curPage }}
+    {{ totalPage }}
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -35,7 +39,14 @@
                 >Previous</v-btn
               >
             </li>
-
+            <div class="text-center">
+              <v-pagination
+                v-model="page"
+                :length="endPage - startPage + 1"
+                @input="next"
+                circle
+              ></v-pagination>
+            </div>
             <li
               class="page-item"
               v-for="i in range(startPage, endPage)"
@@ -74,6 +85,7 @@ export default {
   data: function () {
     return {
       boarda: [{ curpage: "" }],
+      page: "1",
       // items: [],
       // pages: [],
       // board: "",
@@ -96,6 +108,9 @@ export default {
         list.push(i);
       }
       return list;
+    },
+    next(page) {
+      this.$store.dispatch("movePage", page);
     },
   },
 };

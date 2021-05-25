@@ -171,7 +171,7 @@ export default new Vuex.Store({
       .then(({ data }) => {
         console.log("movepage");
         context.commit("setBoards",data);
-        context.commit("setTotalCount",data.totalPage);
+        context.commit("setTotalPage",data.totalPage);
         context.commit("setEndPage",data.endPage);
         context.commit("setStartPage",data.startPage);
         context.commit("setCurPage",page);
