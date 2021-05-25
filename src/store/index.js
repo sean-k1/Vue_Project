@@ -29,6 +29,7 @@ export default new Vuex.Store({
     deallist: {},
     isLogin: "",
     searchResult: [],
+    centerMap: {},
   },
   getters:{
     boards(state){
@@ -90,6 +91,9 @@ export default new Vuex.Store({
     },
     searchResult(state) {
       return state.searchResult;
+    },
+    centerMap(state) {
+      return state.centerMap;
     }
     
   },
@@ -105,7 +109,7 @@ export default new Vuex.Store({
       state.boards = payload.bList;
     },
     setEndPage(state, payload){
-      state.EndPage = payload;
+      state.endPage = payload;
     },
     setTotalPage(state, payload){
       state.totalPage = payload;
@@ -154,6 +158,9 @@ export default new Vuex.Store({
     },
     setSearchResult(state,payload) {
       state.searchResult = payload;
+    },
+    setCenterMap(state, payload) {
+      state.centerMap = payload;
     }
 
   },
@@ -417,7 +424,11 @@ export default new Vuex.Store({
     },
     searchResult(context, payload) {
       context.commit("setSearchResult", payload);
-    }
+    },
+    centerMap(context, payload) {
+      context.commit("setCenterMap", payload);
+    },
+
 
     
     

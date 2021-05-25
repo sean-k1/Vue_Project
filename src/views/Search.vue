@@ -46,6 +46,8 @@ export default {
             this.stationlist[stationidx++] = {
               place_name: data.documents[i].place_name,
               address_name: data.documents[i].address_name,
+              x: data.documents[i].place_x,
+              y: data.documents[i].place_y,
             };
 
             flag = true;
@@ -56,6 +58,8 @@ export default {
               this.officelist[officeidx++] = {
                 place_name: data.documents[i].place_name,
                 address_name: data.documents[i].address_name,
+                x: data.documents[i].place_x,
+                y: data.documents[i].place_y,
               };
 
               console.log("오피스텔입니다");
@@ -65,6 +69,8 @@ export default {
               this.aptlist[aptidx++] = {
                 place_name: data.documents[i].place_name,
                 address_name: data.documents[i].address_name,
+                x: data.documents[i].place_x,
+                y: data.documents[i].place_y,
               };
 
               console.log("아파트입니다");
@@ -73,6 +79,8 @@ export default {
               this.aptlist[aptidx++] = {
                 place_name: data.documents[i].place_name,
                 address_name: data.documents[i].address_name,
+                x: data.documents[i].place_x,
+                y: data.documents[i].place_y,
               };
 
               console.log("기타시설입니다");
