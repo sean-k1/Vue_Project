@@ -9,30 +9,12 @@
       >
       <v-spacer></v-spacer>
 
-      <v-text-field
-        flat
-        hide-details
-        append-icon="mdi-magnify"
-        placeholder="Search"
-        outlined
-        dense
-        v-model="searchText"
-        @click:append="search"
-        class="hidden-sm-and-down"
-      ></v-text-field>
-
+      <search-bar></search-bar>
       <v-spacer></v-spacer>
       <div v-if="isLogin">
         <v-menu offset-y left>
           <template v-slot:activator="{ on }">
-            <v-btn
-              small
-              color="blue"
-              depressed
-              fab
-              v-on="on"
-              class="white--text"
-            >
+            <v-btn small color="blue" depressed fab v-on="on" class="white--text">
               {{ userInfo.userId }}
 
               <v-icon dark right> mdi-cancel </v-icon>
@@ -48,9 +30,7 @@
 
                 <v-list-item-content>
                   <v-list-item-title>{{ userInfo.userName }}</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    userInfo.email
-                  }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>{{ userInfo.email }}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -97,18 +77,15 @@
                 <v-row justify="center">
                   <v-avatar color="primary" size="105">
                     <img
-                      :src="`http://localhost:9999/happyhouse/img/test${signUp.profile_img}.jpg
-                    `"
+                      :src="
+                        `http://localhost:9999/happyhouse/img/test${signUp.profile_img}.jpg
+                    `
+                      "
                     />
                   </v-avatar>
                 </v-row>
                 <v-row justify="center">
-                  <v-btn
-                    color="primary"
-                    class="ma-2"
-                    dark
-                    @click="imageDialog = true"
-                  >
+                  <v-btn color="primary" class="ma-2" dark @click="imageDialog = true">
                     프로필 선택
                   </v-btn>
                 </v-row>
@@ -122,9 +99,7 @@
                           @click="img_choice(1)"
                           style="cursor: pointer"
                         >
-                          <img
-                            :src="`http://localhost:9999/happyhouse/img/test1.jpg`"
-                          />
+                          <img :src="`http://localhost:9999/happyhouse/img/test1.jpg`" />
                         </v-list-item-avatar>
                       </v-col>
                       <v-col align="center">
@@ -133,9 +108,7 @@
                           @click="img_choice(2)"
                           style="cursor: pointer"
                         >
-                          <img
-                            :src="`http://localhost:9999/happyhouse/img/test2.jpg`"
-                          />
+                          <img :src="`http://localhost:9999/happyhouse/img/test2.jpg`" />
                         </v-list-item-avatar>
                       </v-col>
                     </v-row>
@@ -146,9 +119,7 @@
                           @click="img_choice(3)"
                           style="cursor: pointer"
                         >
-                          <img
-                            :src="`http://localhost:9999/happyhouse/img/test3.jpg`"
-                          />
+                          <img :src="`http://localhost:9999/happyhouse/img/test3.jpg`" />
                         </v-list-item-avatar>
                       </v-col>
                       <v-col align="center">
@@ -157,9 +128,7 @@
                           @click="img_choice(4)"
                           style="cursor: pointer"
                         >
-                          <img
-                            :src="`http://localhost:9999/happyhouse/img/test4.jpg`"
-                          />
+                          <img :src="`http://localhost:9999/happyhouse/img/test4.jpg`" />
                         </v-list-item-avatar>
                       </v-col>
                     </v-row>
@@ -170,9 +139,7 @@
                           @click="img_choice(5)"
                           style="cursor: pointer"
                         >
-                          <img
-                            :src="`http://localhost:9999/happyhouse/img/test5.jpg`"
-                          />
+                          <img :src="`http://localhost:9999/happyhouse/img/test5.jpg`" />
                         </v-list-item-avatar>
                       </v-col>
                       <v-col align="center">
@@ -181,9 +148,7 @@
                           @click="img_choice(6)"
                           style="cursor: pointer"
                         >
-                          <img
-                            :src="`http://localhost:9999/happyhouse/img/test6.jpg`"
-                          />
+                          <img :src="`http://localhost:9999/happyhouse/img/test6.jpg`" />
                         </v-list-item-avatar>
                       </v-col>
                     </v-row>
@@ -197,11 +162,7 @@
 
                 <validation-observer ref="observer" v-slot="{ invalid }">
                   <form @submit.prevent="postSignUp">
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="ID"
-                      rules="required|max:10"
-                    >
+                    <validation-provider v-slot="{ errors }" name="ID" rules="required|max:10">
                       <v-text-field
                         v-model="signUp.userId"
                         :counter="10"
@@ -226,11 +187,7 @@
                       ></v-text-field>
                     </validation-provider>
 
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="Name"
-                      rules="required|max:10"
-                    >
+                    <validation-provider v-slot="{ errors }" name="Name" rules="required|max:10">
                       <v-text-field
                         v-model="signUp.userName"
                         :counter="10"
@@ -239,16 +196,8 @@
                         required
                       ></v-text-field>
                     </validation-provider>
-                    <v-text-field
-                      label="Email"
-                      v-model="signUp.email"
-                      required
-                    ></v-text-field>
-                    <v-text-field
-                      label="Address"
-                      v-model="signUp.address"
-                      required
-                    ></v-text-field>
+                    <v-text-field label="Email" v-model="signUp.email" required></v-text-field>
+                    <v-text-field label="Address" v-model="signUp.address" required></v-text-field>
                     <v-btn class="mr-4" type="submit" :disabled="invalid">
                       submit
                     </v-btn>
@@ -275,11 +224,7 @@
               <v-container>
                 <v-row>
                   <v-col cols="12">
-                    <v-text-field
-                      label="I D"
-                      v-model="login.userId"
-                      required
-                    ></v-text-field>
+                    <v-text-field label="I D" v-model="login.userId" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
@@ -321,10 +266,7 @@
               'hidden-lg-and-up': $route.name === 'Watch' ? false : true,
             }"
           >
-            <v-app-bar-nav-icon
-              @click="drawer = !drawer"
-              class="mr-5"
-            ></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="drawer = !drawer" class="mr-5"></v-app-bar-nav-icon>
             <v-toolbar-title class="font-weight-bold">VueTube</v-toolbar-title>
           </v-list-item>
           <v-divider class="hidden-lg-and-up"></v-divider>
@@ -359,15 +301,9 @@
 
           <span v-for="link in links" :key="link.text">
             <span v-if="link.text === 'Terms'" class="mb-2 d-block"> </span>
-            <v-btn
-              href
-              router
-              :to="link.link"
-              text
-              class="text-capitalize px-1"
-              small
-              >{{ link.text }}</v-btn
-            >
+            <v-btn href router :to="link.link" text class="text-capitalize px-1" small>{{
+              link.text
+            }}</v-btn>
           </span>
         </v-list>
       </div>
@@ -377,8 +313,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import SearchBar from "../views/Search";
 export default {
+  components: {
+    SearchBar,
+  },
   data: () => ({
     drawer: false,
     dialog: false,
@@ -493,8 +432,7 @@ export default {
     transform: rotate3d(0, 0, 0, 0);
     -webkit-transition: background-color 100ms ease-out, margin 100ms ease-out,
       height 100ms ease-out;
-    transition: background-color 100ms ease-out, margin 100ms ease-out,
-      height 100ms ease-out;
+    transition: background-color 100ms ease-out, margin 100ms ease-out, height 100ms ease-out;
 
     margin: 5px 5px 5px 0;
     border-radius: 20px;

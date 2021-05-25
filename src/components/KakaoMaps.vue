@@ -1,7 +1,7 @@
 <template>
   <div id="makemap">
     <div id="map">
-      <v-toolbar dense floating>
+      <!-- <v-toolbar dense floating>
         <v-text-field hide-details prepend-icon="mdi-magnify" single-line></v-text-field>
 
         <v-btn icon>
@@ -11,7 +11,7 @@
         <v-btn icon>
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
-      </v-toolbar>
+      </v-toolbar> -->
     </div>
     <v-icon>mdi-filter</v-icon>
   </div>
@@ -73,7 +73,7 @@ const KakaoMaps = {
       let options = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567),
         level: 3,
-        zIndex: -1,
+        zIndex: 0,
       };
       container.style.width = "100%";
       container.style.height = "1400px";

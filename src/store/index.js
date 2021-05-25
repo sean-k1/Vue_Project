@@ -27,7 +27,8 @@ export default new Vuex.Store({
     users:[],
     station: {},
     deallist: {},
-    isLogin:"",
+    isLogin: "",
+    searchResult: [],
   },
   getters:{
     boards(state){
@@ -86,6 +87,9 @@ export default new Vuex.Store({
     },
     isLogin(state){
       return state.isLogin;
+    },
+    searchResult(state) {
+      return state.searchResult;
     }
     
   },
@@ -148,6 +152,9 @@ export default new Vuex.Store({
     setIsLoginfalse(state){
       state.isLogin = false;
     },
+    setSearchResult(state,payload) {
+      state.searchResult = payload;
+    }
 
   },
   actions: {
@@ -407,6 +414,9 @@ export default new Vuex.Store({
       .then(()=>{
         window.location.reload();
       })
+    },
+    searchResult(context, payload) {
+      context.commit("setSearchResult", payload);
     }
 
     

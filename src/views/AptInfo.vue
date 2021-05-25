@@ -1,16 +1,78 @@
 <template>
   <div>
+    <div>
+      <span v-if="searchResult.stationlist">
+        <template>
+          <v-card class="mx-auto" max-width="344" outlined>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="overline mb-4">
+                  지하철역
+                </div>
+                <search-row
+                  class="inline-block"
+                  v-for="(item, idx) in searchResult.stationlist"
+                  :key="idx"
+                  :place="item"
+                ></search-row>
+              </v-list-item-content>
+
+              <v-list-item-avatar tile size="40" color="grey"></v-list-item-avatar>
+            </v-list-item>
+          </v-card>
+        </template>
+      </span>
+
+      <span v-if="searchResult.aptlist">
+        <template>
+          <v-card class="mx-auto" max-width="344" outlined>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="overline mb-4">
+                  아파트
+                </div>
+                <search-row
+                  class="inline-block"
+                  v-for="(item, idx) in searchResult.aptlist"
+                  :key="idx"
+                  :place="item"
+                ></search-row>
+              </v-list-item-content>
+
+              <v-list-item-avatar tile size="40" color="grey"></v-list-item-avatar>
+            </v-list-item>
+          </v-card>
+        </template>
+      </span>
+      <span v-if="searchResult.officelist">
+        <template>
+          <v-card class="mx-auto" max-width="344" outlined>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="overline mb-4">
+                  오피스텔
+                </div>
+                <search-row
+                  class="inline-block"
+                  v-for="(item, idx) in searchResult.officelist"
+                  :key="idx"
+                  :place="item"
+                ></search-row>
+              </v-list-item-content>
+
+              <v-list-item-avatar tile size="40" color="grey"></v-list-item-avatar>
+            </v-list-item>
+          </v-card>
+        </template>
+      </span>
+    </div>
     <div v-if="!deallist.bList">
       <div class=" bd-sidebar">
-        <h4 class=" font-weight-bold">매매 정보</h4>
-        <ul class="nav" id="sidebar_deal_list ">
-          <li class="border">
-            <a
-              >해당하는 건물이 없습니다.<br />
-              <br />
-            </a>
-          </li>
-        </ul>
+        <v-simple-table>
+          <template v-slot:default>
+            해당하는 건물이 없습니다.
+          </template>
+        </v-simple-table>
         <br />
       </div>
     </div>
@@ -43,11 +105,12 @@
 <script>
 import { mapGetters } from "vuex";
 import AptRow from "../components/AptRow.vue";
-
+import SearchRow from "../components/SearchRow.vue";
 export default {
   name: "list",
   components: {
     AptRow,
+    SearchRow,
   },
   AptRowdata: function() {
     return {
@@ -56,7 +119,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["deallist"]),
+    ...mapGetters(["deallist", "searchResult"]),
   },
 
   methods: {
@@ -74,4 +137,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.inline-block {
+  display: inline-block;
+}
+</style>
