@@ -47,10 +47,6 @@ const KakaoMaps = {
   },
 
   mounted() {
-    var aaa = function() {
-      console.log("aaa");
-    };
-
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -257,7 +253,7 @@ const KakaoMaps = {
       divMarker.classList.add("customoverlay");
       // this.dragDealList = tmp;
       let out = this;
-      let zindex = 0;
+
       divMarker.onclick = function() {
         // console.log(deallist);
         let item = tmp;
@@ -265,9 +261,8 @@ const KakaoMaps = {
         console.log(temp);
         out.$store.dispatch("getDealListDragger", temp);
       }; //this.getDealListDragger;
-      divMarker.onmousemove = function() {
-        zindex = 10;
-      };
+      divMarker.onmousemove = function() {};
+
       divMarker.innerHTML = `
                     <a href="#" class="clickevent">
                     <span class="count">${deallist.length}</span>
