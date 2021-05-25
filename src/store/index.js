@@ -258,6 +258,7 @@ export default new Vuex.Store({
     boardhttp
     .post("/login", payload)
     .then(({data})=>{
+      alert("환영합니다!");
       console.log("데이터 :" +JSON.stringify(data));
       context.commit("setToken",data.token);
       context.commit("setIsLoginTrue");
@@ -265,6 +266,9 @@ export default new Vuex.Store({
       console.log(context.state.isLogin);
       this.dispatch('getUser',payload);
       Vue.prototype.$session.set("token",data.token);
+    })
+    .catch(()=>{
+      alert("아이디와 비밀번호를 확인해주세요");
     })
   },
   getUser(context,payload){
@@ -283,7 +287,13 @@ export default new Vuex.Store({
     boardhttp
     .post("/signUp",payload)
     .then(()=>{
-    });
+      alert("가입 성공!")
+      window.location.reload();
+    })
+    .catch(()=>{
+      alert("중복된 아이디 입니다!");
+    })
+    ;
   },
   modifyUser(context,payload){
     tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;

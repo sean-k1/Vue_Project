@@ -33,6 +33,8 @@
               class="white--text"
             >
               {{ userInfo.userId }}
+
+              <v-icon dark right> mdi-cancel </v-icon>
             </v-btn>
           </template>
 
@@ -55,7 +57,7 @@
             <v-divider></v-divider>
 
             <v-list>
-              <v-list-item router to="/board">
+              <v-list-item router to="/userInfo">
                 <v-list-item-icon>
                   <v-icon>mdi-account-box</v-icon>
                 </v-list-item-icon>
@@ -78,51 +80,145 @@
         </v-menu>
       </div>
       <div v-else>
-        <v-row justify="center">
-          <v-dialog v-model="dialog" persistent max-width="600px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark v-bind="attrs" v-on="on">
+        <v-dialog v-model="signUpDialog" persistent max-width="600px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="ma-2" color="#009688" dark v-bind="attrs" v-on="on">
+              <v-icon dark left> mdi-human-greeting </v-icon>
+              Sign Up
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">Welcome WantSeek House</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-avatar color="primary" size="105">{{
+                  userInfo.userId
+                }}</v-avatar>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="select"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="select"
+                    :items="profile_items"
+                    :error-messages="errors"
+                    label="Select"
+                    data-vv-name="select"
+                    required
+                  ></v-select>
+                </validation-provider>
+                <validation-observer ref="observer" v-slot="{ invalid }">
+                  <form @submit.prevent="postSignUp">
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="ID"
+                      rules="required|max:10"
+                    >
+                      <v-text-field
+                        v-model="signUp.userId"
+                        :counter="10"
+                        :error-messages="errors"
+                        label="ID"
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Password"
+                      rules="required|max:20"
+                    >
+                      <v-text-field
+                        v-model="signUp.userPwd"
+                        :counter="25"
+                        type="password"
+                        :error-messages="errors"
+                        label="Password"
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Name"
+                      rules="required|max:10"
+                    >
+                      <v-text-field
+                        v-model="signUp.userName"
+                        :counter="10"
+                        :error-messages="errors"
+                        label="Name"
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                    <v-text-field
+                      label="Email"
+                      v-model="signUp.email"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      label="Address"
+                      v-model="signUp.address"
+                      required
+                    ></v-text-field>
+                    <v-btn class="mr-4" type="submit" :disabled="invalid">
+                      submit
+                    </v-btn>
+                    <v-btn @click="signUpDialog = false"> close </v-btn>
+                  </form>
+                </validation-observer>
+              </v-container>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialog" persistent max-width="600px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="ma-2" color="primary" dark v-bind="attrs" v-on="on">
+              <v-icon dark left> mdi-account-circle </v-icon>
+              Login
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">Welcome WonSik House</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="I D"
+                      v-model="login.userId"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Password"
+                      type="password"
+                      v-model="login.userPwd"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="postLogin">
                 Login
               </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">Welcome WonSik House</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12">
-                      <v-text-field
-                        label="I D"
-                        v-model="login.userId"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field
-                        label="Password"
-                        type="password"
-                        v-model="login.userPwd"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="postLogin">
-                  Login
-                </v-btn>
 
-                <v-btn color="blue darken-1" text @click="dialog = false">
-                  Close
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-row>
+              <v-btn color="blue darken-1" text @click="dialog = false">
+                Close
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </v-app-bar>
 
@@ -196,11 +292,15 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   data: () => ({
     drawer: false,
     dialog: false,
+    signUpDialog: false,
     login: {},
+    signUp: {},
+    profile_items: ["img 1", "img 2", "img 3", "img 4"],
     items: [
       {
         header: null,
@@ -242,10 +342,15 @@ export default {
       });
     },
     postLogin() {
-      this.$store.dispatch("login", this.login).then(() => {
-        alert("환영합니다!");
+      this.$store.dispatch("login", this.login).then(() => {});
+    },
+    postSignUp() {
+      console.log(this.signUp);
+      this.$store.dispatch("signUp", this.signUp).then(() => {
+        //window.location.reload();
       });
     },
+
     logOut() {
       this.$store.dispatch("logout").then(() => {
         alert("로그아웃 되었습니다 !");

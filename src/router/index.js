@@ -10,7 +10,7 @@ import Test from "@/views/test.vue";
 import AdminPage from "@/views/adminPage.vue";
 //import AptInfo from "../views/AptInfo.vue";
 import About from "../views/About.vue";
-import userState from "@/components/userState.vue";
+import userInfo from "@/components/userInfo.vue";
 
 
 Vue.use(VueRouter)
@@ -56,9 +56,12 @@ const routes = [
     
   },
   {
-    path:"/userState",
-    name:"userState",
-    component:userState,
+    path:"/userInfo",
+    name:"userInfo",
+    components: {
+      NavBar,
+      default: userInfo
+    },
   },
   {
     path:"/test",
@@ -83,6 +86,7 @@ const routes = [
         import(/* webpackChunkName: "video" */ '../views/History.vue')
     }
   },
+  
   
 ]
 
