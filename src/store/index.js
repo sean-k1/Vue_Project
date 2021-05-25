@@ -90,7 +90,9 @@ export default new Vuex.Store({
     
   },
   mutations: {
-    setComments(){},
+    setComments(state,payload){
+      state.comments = payload;
+    },
     setComment(){},
     setBoard(state, payload){
       state.board = payload;
@@ -390,6 +392,21 @@ export default new Vuex.Store({
     },
     getDealListDragger(context, payload) {
       context.commit("setDealList",payload);
+    },
+    getCmtList(context,payload) {
+      console.log("댓글 읽기 : "+payload);
+      boardhttp.get("/ajax?bnum="+payload).then(({ data }) => {
+        context.commit("setComments",data);
+        console.log(data);
+      });
+    },
+    postComment(context, payload){
+      console.log("댓글 작성 : "+ JSON.stringify(payload));
+      tokenhttp
+      .post("/ajax",payload)
+      .then(()=>{
+        window.location.reload();
+      })
     }
 
     
