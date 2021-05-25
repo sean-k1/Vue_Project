@@ -7,30 +7,35 @@
     <td>{{ user.address }}</td>
     <td>{{ getFormatDate(user.joindate) }}</td>
     <td>
-      <b-button variant="info" @click="modifyOnBtn">수정</b-button>
-      <b-button variant="danger" @click="deleteBtn">삭제</b-button>
+      <v-btn color="#B2DFDB" @click="modifyOnBtn">수정</v-btn>
+    </td>
+    <td>
+      <v-btn color="#EF5350" @click="deleteBtn">삭제</v-btn>
     </td>
   </tr>
   <tr v-else>
     <td>{{ user.userId }}</td>
     <td>
-      <input type="text" v-model="modify_user.userPwd" />
+      <v-text-field
+        v-model="modify_user.userPwd"
+        :counter="10"
+        required
+      ></v-text-field>
+    </td>
+    <td>{{ user.userName }}</td>
+    <td>
+      <v-text-field v-model="modify_user.email" required></v-text-field>
     </td>
     <td>
-      {{ user.userName }}
+      <v-text-field v-model="modify_user.address" required></v-text-field>
+    </td>
+
+    <td>{{ getFormatDate(user.joindate) }}</td>
+    <td>
+      <v-btn color="#B2DFDB" @click="putUser">수정</v-btn>
     </td>
     <td>
-      <input type="text" v-model="modify_user.email" />
-    </td>
-    <td>
-      <input type="text" v-model="modify_user.address" />
-    </td>
-    <td>
-      <input type="date" v-model="modify_user.joindate" />
-    </td>
-    <td>
-      <b-button variant="info" @click="putUser">수정</b-button>
-      <b-button variant="danger" @click="modifyOffBtn">취소</b-button>
+      <v-btn color="#EF5350" @click="modifyOffBtn">취소</v-btn>
     </td>
   </tr>
 </template>
