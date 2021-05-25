@@ -6,9 +6,7 @@
           cols="9"
         >
  
-  
-
-         <kakaomap >
+         <kakaomap>
            
          </kakaomap>
          maps area
