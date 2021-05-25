@@ -33,8 +33,6 @@ export default new Vuex.Store({
     officelist: {}},
     centerMap: {},
   },
-    centerMap: {},
-  },
   getters:{
     boards(state){
       return state.boards;
