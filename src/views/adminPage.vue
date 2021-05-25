@@ -1,84 +1,208 @@
 <template>
   <div class="container">
     <h2>회원 목록</h2>
+
     <div align="right">
-      <b-button variant="info" v-b-modal.user-add-modal> 등록 </b-button>
+      <v-dialog v-model="postUserDialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="ma-2" color="#009688" dark v-bind="attrs" v-on="on">
+            <v-icon dark left> mdi-human-greeting </v-icon>
+            유저 등록
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="headline">Welcome WantSeek House</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row justify="center">
+                <v-avatar color="primary" size="105">
+                  <img
+                    :src="`http://localhost:9999/happyhouse/img/test${addUser.profile_img}.jpg
+                    `"
+                  />
+                </v-avatar>
+              </v-row>
+              <v-row justify="center">
+                <v-btn
+                  color="primary"
+                  class="ma-2"
+                  dark
+                  @click="imageDialog = true"
+                >
+                  프로필 선택
+                </v-btn>
+              </v-row>
+              <v-dialog v-model="imageDialog" max-width="500px">
+                <v-card>
+                  <v-card-title> 프로필 선택 </v-card-title>
+                  <v-row align="center">
+                    <v-col align="center">
+                      <v-list-item-avatar
+                        size="105"
+                        @click="img_choice(1)"
+                        style="cursor: pointer"
+                      >
+                        <img
+                          :src="`http://localhost:9999/happyhouse/img/test1.jpg`"
+                        />
+                      </v-list-item-avatar>
+                    </v-col>
+                    <v-col align="center">
+                      <v-list-item-avatar
+                        size="105"
+                        @click="img_choice(2)"
+                        style="cursor: pointer"
+                      >
+                        <img
+                          :src="`http://localhost:9999/happyhouse/img/test2.jpg`"
+                        />
+                      </v-list-item-avatar>
+                    </v-col>
+                  </v-row>
+                  <v-row align="center">
+                    <v-col align="center">
+                      <v-list-item-avatar
+                        size="105"
+                        @click="img_choice(3)"
+                        style="cursor: pointer"
+                      >
+                        <img
+                          :src="`http://localhost:9999/happyhouse/img/test3.jpg`"
+                        />
+                      </v-list-item-avatar>
+                    </v-col>
+                    <v-col align="center">
+                      <v-list-item-avatar
+                        size="105"
+                        @click="img_choice(4)"
+                        style="cursor: pointer"
+                      >
+                        <img
+                          :src="`http://localhost:9999/happyhouse/img/test4.jpg`"
+                        />
+                      </v-list-item-avatar>
+                    </v-col>
+                  </v-row>
+                  <v-row align="center">
+                    <v-col align="center">
+                      <v-list-item-avatar
+                        size="105"
+                        @click="img_choice(5)"
+                        style="cursor: pointer"
+                      >
+                        <img
+                          :src="`http://localhost:9999/happyhouse/img/test5.jpg`"
+                        />
+                      </v-list-item-avatar>
+                    </v-col>
+                    <v-col align="center">
+                      <v-list-item-avatar
+                        size="105"
+                        @click="img_choice(6)"
+                        style="cursor: pointer"
+                      >
+                        <img
+                          :src="`http://localhost:9999/happyhouse/img/test6.jpg`"
+                        />
+                      </v-list-item-avatar>
+                    </v-col>
+                  </v-row>
+                  <v-card-actions>
+                    <v-btn color="primary" text @click="imageDialog = false">
+                      Close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
+              <validation-observer ref="observer" v-slot="{ invalid }">
+                <form @submit.prevent="postUser">
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="ID"
+                    rules="required|max:10"
+                  >
+                    <v-text-field
+                      v-model="addUser.userId"
+                      :counter="10"
+                      :error-messages="errors"
+                      label="ID"
+                      required
+                    ></v-text-field>
+                  </validation-provider>
+
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="Password"
+                    rules="required|max:20"
+                  >
+                    <v-text-field
+                      v-model="addUser.userPwd"
+                      :counter="25"
+                      type="password"
+                      :error-messages="errors"
+                      label="Password"
+                      required
+                    ></v-text-field>
+                  </validation-provider>
+
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="Name"
+                    rules="required|max:10"
+                  >
+                    <v-text-field
+                      v-model="addUser.userName"
+                      :counter="10"
+                      :error-messages="errors"
+                      label="Name"
+                      required
+                    ></v-text-field>
+                  </validation-provider>
+                  <v-text-field
+                    label="Email"
+                    v-model="addUser.email"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="Address"
+                    v-model="addUser.address"
+                    required
+                  ></v-text-field>
+                  <v-btn class="mr-4" type="submit" :disabled="invalid">
+                    submit
+                  </v-btn>
+                  <v-btn @click="postUserDialog = false"> close </v-btn>
+                </form>
+              </validation-observer>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </div>
-    <table class="table table-hover">
-      <colgroup>
-        <col width="120" />
-        <col width="120" />
-        <col width="120" />
-        <col width="170" />
-        <col width="*" />
-        <col width="120" />
-        <col width="130" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th class="text-center">아이디</th>
-          <th class="text-center">비밀번호</th>
-          <th class="text-center">이름</th>
-          <th class="text-center">이메일</th>
-          <th class="text-center">주소</th>
-          <th class="text-center">가입일</th>
-          <th class="text-center">수정/삭제</th>
-        </tr>
-      </thead>
-      <user-list
-        v-for="(user, idx) in userList"
-        :key="idx"
-        :user="user"
-      ></user-list>
-    </table>
-
-    <!-- 회원 등록 모달 -->
-
-    <b-modal id="user-add-modal" title="회원 등록" hide-footer>
-      <form>
-        <b-form-group label="아 이 디" label-for="userId-input">
-          <b-form-input
-            id="userId-input"
-            v-model="add_user.userId"
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="비 밀 번 호" label-for="userPwd-input">
-          <b-form-input
-            id="userPwd-input"
-            v-model="add_user.userPwd"
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="이 름" label-for="userName-input">
-          <b-form-input
-            id="userName-input"
-            v-model="add_user.userName"
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="이 메 일" label-for="email-input">
-          <b-form-input
-            id="email-input"
-            v-model="add_user.email"
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="주 소" label-for="address-input">
-          <b-form-input
-            id="address-input"
-            v-model="add_user.address"
-          ></b-form-input>
-        </b-form-group>
-
-        <div class="form-group" align="center">
-          <button type="reset" class="btn btn-primary" @click="postUser">
-            회원등록
-          </button>
-          <button type="reset" class="btn btn-warning">초기화</button>
-        </div>
-      </form>
-    </b-modal>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-center">아이디</th>
+            <th class="text-center">비밀번호</th>
+            <th class="text-center">이름</th>
+            <th class="text-center">이메일</th>
+            <th class="text-center">주소</th>
+            <th class="text-center">가입일</th>
+            <th class="text-center"></th>
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+        <user-list
+          v-for="(user, idx) in userList"
+          :key="idx"
+          :user="user"
+        ></user-list>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
@@ -92,6 +216,11 @@ export default {
   },
   data: function () {
     return {
+      postUserDialog: false,
+      imageDialog: false,
+      addUser: {
+        profile_img: "2",
+      },
       add_user: {
         userId: "",
         userPwd: "",
@@ -110,7 +239,7 @@ export default {
   },
   methods: {
     postUser() {
-      this.$store.dispatch("postUser", this.add_user);
+      this.$store.dispatch("postUser", this.addUser).then(() => {});
     },
   },
 };
