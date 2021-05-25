@@ -78,14 +78,10 @@
     </div>
     <div v-else>
       <h4 class=" font-weight-bold">매매 정보</h4>
+      <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
 
-      <v-simple-table>
+      <!-- <v-simple-table>
         <template v-slot:default>
-          <!-- <colgroup>
-                  <col :style="{ width: '30%' }" />
-                  <col :style="{ width: '50%' }" />
-                  <col :style="{ width: '20%' }" />
-            </colgroup> -->
           <thead>
             <tr>
               <th class="text-left">동</th>
@@ -97,7 +93,7 @@
           </thead>
           <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
         </template>
-      </v-simple-table>
+      </v-simple-table> -->
     </div>
   </div>
 </template>
