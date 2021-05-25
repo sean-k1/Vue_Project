@@ -29,7 +29,7 @@
       <div class="d-flex justify-content-center container">
         <nav aria-label="...">
           <ul class="pagination">
-            <li v-if="startPage > 1" class="page-item disabled">
+            <!-- <li v-if="startPage > 1" class="page-item disabled">
               <v-btn
                 href="#"
                 @click="movePage(startPage - 1)"
@@ -38,13 +38,13 @@
                 tabindex="-1"
                 >Previous</v-btn
               >
-            </li>
+            </li> -->
             <div class="text-center">
               <v-pagination
                 v-model="page"
-                :length="endPage - startPage + 1"
+                :length="totalPage"
+                :total-visible="7"
                 @input="movePage"
-                circle
               ></v-pagination>
             </div>
             <!-- <li
@@ -112,14 +112,14 @@ export default {
     movePage(page) {
       this.$store.dispatch("movePage", page);
     },
-    next() {
-      var page = this.$store.getters.endPage;
-      this.$store.dispatch("movePage", page + 1);
-    },
-    previous() {
-      var page = this.$store.getters.startPage;
-      this.$store.dispatch("movePage", page - 1);
-    },
+    // next() {
+    //   var page = this.$store.getters.endPage;
+    //   this.$store.dispatch("movePage", page + 1);
+    // },
+    // previous() {
+    //   var page = this.$store.getters.startPage;
+    //   this.$store.dispatch("movePage", page - 1);
+    // },
   },
 };
 </script>
