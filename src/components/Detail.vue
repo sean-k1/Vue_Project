@@ -1,29 +1,33 @@
 <template>
   <div>
-    <table class="table table-striped">
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">제목</th>
+            <th class="text-left">작성자</th>
+            <th class="text-left">작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ board.btitle }}</td>
+            <td>{{ board.bwriter }}</td>
+            <td>{{ getFormatDate(board.bregdate) }}</td>
+          </tr>
+          <tr>
+            <td class="text-center" colspan="3">내용</td>
+          </tr>
+          <tr>
+            <td colspan="3">{{ board.bcontent }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
 
-      <tr>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-      </tr>
-      <tr>
-        <td>{{ board.btitle }}</td>
-        <td>{{ board.bwriter }}</td>
-        <td>{{ getFormatDate(board.bregdate) }}</td>
-      </tr>
-      <tr>
-        <td colspan="3">내용</td>
-      </tr>
-      <tr>
-        <td colspan="3">{{ board.bcontent }}</td>
-      </tr>
-    </table>
-    <span><b-button @click="putBoard" variant="info">수정하기</b-button></span>
-    |
-    <span
-      ><b-button @click="deleteBoard" variant="danger">삭제하기</b-button></span
-    >
+    <span><v-btn @click="putBoard" color="info">수정하기</v-btn></span>
+
+    <span><v-btn @click="deleteBoard" color="red">삭제하기</v-btn></span>
 
     <br />
   </div>

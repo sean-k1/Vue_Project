@@ -4,11 +4,11 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="font-weight-bold"
         ><router-link to="/" class="black--text" style="text-decoration: none"
-          >WonSik House</router-link
+          >WantSeek House</router-link
         ></v-toolbar-title
       >
       <v-spacer></v-spacer>
-      
+
       <v-text-field
         flat
         hide-details
@@ -16,7 +16,7 @@
         placeholder="Search"
         outlined
         dense
-        v-model="searchText "
+        v-model="searchText"
         @click:append="search"
         class="hidden-sm-and-down"
       ></v-text-field>
@@ -94,23 +94,107 @@
             </v-card-title>
             <v-card-text>
               <v-container>
-                <v-avatar color="primary" size="105">{{
-                  userInfo.userId
-                }}</v-avatar>
-                <validation-provider
-                  v-slot="{ errors }"
-                  name="select"
-                  rules="required"
-                >
-                  <v-select
-                    v-model="select"
-                    :items="profile_items"
-                    :error-messages="errors"
-                    label="Select"
-                    data-vv-name="select"
-                    required
-                  ></v-select>
-                </validation-provider>
+                <v-row justify="center">
+                  <v-avatar color="primary" size="105">
+                    <img
+                      :src="`http://localhost:9999/happyhouse/img/test${signUp.profile_img}.jpg
+                    `"
+                    />
+                  </v-avatar>
+                </v-row>
+                <v-row justify="center">
+                  <v-btn
+                    color="primary"
+                    class="ma-2"
+                    dark
+                    @click="imageDialog = true"
+                  >
+                    프로필 선택
+                  </v-btn>
+                </v-row>
+                <v-dialog v-model="imageDialog" max-width="500px">
+                  <v-card>
+                    <v-card-title> 프로필 선택 </v-card-title>
+                    <v-row align="center">
+                      <v-col align="center">
+                        <v-list-item-avatar
+                          size="105"
+                          @click="img_choice(1)"
+                          style="cursor: pointer"
+                        >
+                          <img
+                            :src="`http://localhost:9999/happyhouse/img/test1.jpg`"
+                          />
+                        </v-list-item-avatar>
+                      </v-col>
+                      <v-col align="center">
+                        <v-list-item-avatar
+                          size="105"
+                          @click="img_choice(2)"
+                          style="cursor: pointer"
+                        >
+                          <img
+                            :src="`http://localhost:9999/happyhouse/img/test2.jpg`"
+                          />
+                        </v-list-item-avatar>
+                      </v-col>
+                    </v-row>
+                    <v-row align="center">
+                      <v-col align="center">
+                        <v-list-item-avatar
+                          size="105"
+                          @click="img_choice(3)"
+                          style="cursor: pointer"
+                        >
+                          <img
+                            :src="`http://localhost:9999/happyhouse/img/test3.jpg`"
+                          />
+                        </v-list-item-avatar>
+                      </v-col>
+                      <v-col align="center">
+                        <v-list-item-avatar
+                          size="105"
+                          @click="img_choice(4)"
+                          style="cursor: pointer"
+                        >
+                          <img
+                            :src="`http://localhost:9999/happyhouse/img/test4.jpg`"
+                          />
+                        </v-list-item-avatar>
+                      </v-col>
+                    </v-row>
+                    <v-row align="center">
+                      <v-col align="center">
+                        <v-list-item-avatar
+                          size="105"
+                          @click="img_choice(5)"
+                          style="cursor: pointer"
+                        >
+                          <img
+                            :src="`http://localhost:9999/happyhouse/img/test5.jpg`"
+                          />
+                        </v-list-item-avatar>
+                      </v-col>
+                      <v-col align="center">
+                        <v-list-item-avatar
+                          size="105"
+                          @click="img_choice(6)"
+                          style="cursor: pointer"
+                        >
+                          <img
+                            :src="`http://localhost:9999/happyhouse/img/test6.jpg`"
+                          />
+                        </v-list-item-avatar>
+                      </v-col>
+                    </v-row>
+                    <v-card-actions>
+                      <v-btn color="primary" text @click="imageDialog = false">
+                        Close
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+
                 <validation-observer ref="observer" v-slot="{ invalid }">
                   <form @submit.prevent="postSignUp">
                     <validation-provider
@@ -185,7 +269,7 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">Welcome WonSik House</span>
+              <span class="headline">Welcome WantSeek House</span>
             </v-card-title>
             <v-card-text>
               <v-container>
@@ -299,8 +383,11 @@ export default {
     drawer: false,
     dialog: false,
     signUpDialog: false,
+    imageDialog: false,
     login: {},
-    signUp: {},
+    signUp: {
+      profile_img: "2",
+    },
     profile_items: ["img 1", "img 2", "img 3", "img 4"],
     items: [
       {
@@ -350,6 +437,10 @@ export default {
       this.$store.dispatch("signUp", this.signUp).then(() => {
         //window.location.reload();
       });
+    },
+    img_choice(num) {
+      this.signUp.profile_img = num;
+      this.imageDialog = false;
     },
 
     logOut() {

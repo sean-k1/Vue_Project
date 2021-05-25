@@ -1,11 +1,93 @@
 <template>
   <div>
     <v-row style="height: 150px">
-      <v-spacer />
-      <v-col cols="6" sm="6" md="7">
-        <v-avatar color="primary" size="105">{{ userInfo.userId }}</v-avatar>
+      <v-col align="center">
+        <v-avatar color="primary" size="105">
+          <img
+            :src="`http://localhost:9999/happyhouse/img/test${userInfo.profile_img}.jpg
+                    `"
+          />
+        </v-avatar>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col align="center">
+        <v-btn color="primary" class="ma-2" dark @click="imageDialog = true">
+          프로필 선택
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-dialog v-model="imageDialog" max-width="500px">
+      <v-card>
+        <v-card-title> 프로필 선택 </v-card-title>
+        <v-row align="center">
+          <v-col align="center">
+            <v-list-item-avatar
+              size="105"
+              @click="img_choice(1)"
+              style="cursor: pointer"
+            >
+              <img src="@/img/test1.jpg" />
+            </v-list-item-avatar>
+          </v-col>
+          <v-col align="center">
+            <v-list-item-avatar
+              size="105"
+              @click="img_choice(2)"
+              style="cursor: pointer"
+            >
+              <img src="@/img/test2.jpg" />
+            </v-list-item-avatar>
+          </v-col>
+        </v-row>
+        <v-row align="center">
+          <v-col align="center">
+            <v-list-item-avatar
+              size="105"
+              @click="img_choice(3)"
+              style="cursor: pointer"
+            >
+              <img src="@/img/test3.jpg" />
+            </v-list-item-avatar>
+          </v-col>
+          <v-col align="center">
+            <v-list-item-avatar
+              size="105"
+              @click="img_choice(4)"
+              style="cursor: pointer"
+            >
+              <img src="@/img/test4.jpg" />
+            </v-list-item-avatar>
+          </v-col>
+        </v-row>
+        <v-row align="center">
+          <v-col align="center">
+            <v-list-item-avatar
+              size="105"
+              @click="img_choice(5)"
+              style="cursor: pointer"
+            >
+              <img src="@/img/test5.jpg" />
+            </v-list-item-avatar>
+          </v-col>
+          <v-col align="center">
+            <v-list-item-avatar
+              size="105"
+              @click="img_choice(6)"
+              style="cursor: pointer"
+            >
+              <img src="@/img/test6.jpg" />
+            </v-list-item-avatar>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-btn color="primary" text @click="imageDialog = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-container>
       <validation-observer ref="observer" v-slot="{ invalid }">
         <form @submit.prevent="modifyUserInfo">
@@ -75,7 +157,9 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      imageDialog: false,
+    };
   },
   methods: {
     modifyUserInfo() {
@@ -86,12 +170,18 @@ export default {
         alert("바이 바이...");
       });
     },
+    img_choice(num) {
+      this.copyUserInfo.img = num;
+      this.imageDialog = false;
+    },
   },
+
   computed: {
     ...mapGetters({ userInfo: "userInfo", isLogin: "isLogin" }),
     copyUserInfo() {
       let temp = JSON.parse(JSON.stringify(this.userInfo));
       temp.userPwd = "";
+      temp.img = 1;
       return temp;
     },
   },

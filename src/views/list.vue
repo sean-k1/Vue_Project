@@ -2,47 +2,37 @@
 
 <template>
   <div>
-    <b-input-group>
-      <b-dropdown text="Dropdown" variant="info">
-        <b-dropdown-item>작성자 </b-dropdown-item>
-        <b-dropdown-item>글 내용 </b-dropdown-item>
-      </b-dropdown>
-
-      <b-form-input></b-form-input>
-      <b-input-group-append>
-        <b-button variant="outline-success">submit</b-button>
-      </b-input-group-append>
-    </b-input-group>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">작성자</th>
+            <th class="text-center">글 제목</th>
+            <th class="text-left">날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+          <list-row
+            v-for="(board, idx) in boards"
+            :key="idx"
+            :board="board"
+          ></list-row>
+        </tbody>
+      </template>
+    </v-simple-table>
 
     <div v-if="boards.length">
-      <table class="table table-bordered table-condensed">
-        <colgroup>
-          <col :style="{ width: '30%' }" />
-          <col :style="{ width: '50%' }" />
-          <col :style="{ width: '20%' }" />
-        </colgroup>
-        <tr>
-          <th>작성자</th>
-          <th>제목</th>
-          <th>날짜</th>
-        </tr>
-
-        <list-row
-          v-for="(board, idx) in boards"
-          :key="idx"
-          :board="board"
-        ></list-row>
-      </table>
       <div class="d-flex justify-content-center container">
         <nav aria-label="...">
           <ul class="pagination">
             <li v-if="startPage > 1" class="page-item disabled">
-              <a
+              <v-btn
                 href="#"
                 @click="movePage(startPage - 1)"
                 class="page-link"
+                color="#E0E0E0"
                 tabindex="-1"
-                >Previous</a
+                >Previous</v-btn
               >
             </li>
 
@@ -54,12 +44,8 @@
               <a href="#" @click="movePage(i)" class="page-link">{{ i }}</a>
             </li>
             <li v-if="endPage < totalPage" class="page-item">
-              <a
-                href="#"
-                @click="movePage(endPage + 1)"
-                class="page-link"
-                tabindex="-1"
-                >Next</a
+              <v-btn color="#E0E0E0" href="#" @click="movePage(endPage + 1)"
+                >Next</v-btn
               >
             </li>
           </ul>
@@ -72,7 +58,7 @@
       <button @click="`${movePage(pages.curPage+1)}`" class="btn btn-primary">다음</button> -->
     </div>
 
-    <button class="btn btn-primary" @click="write">등록</button>
+    <v-btn depressd color="primary" @click="write">등록</v-btn>
   </div>
 </template>
 
@@ -116,4 +102,8 @@ export default {
 </script>
 
 
-<style></style>
+<style>
+.page-item {
+  list-style: none;
+}
+</style>
