@@ -17,15 +17,25 @@
     <div v-else>
       <h4 class=" font-weight-bold">매매 정보</h4>
 
-      <table class="table table-bordered table-condensed">
-        <!-- <colgroup>
+      <v-simple-table>
+        <template v-slot:default>
+          <!-- <colgroup>
                   <col :style="{ width: '30%' }" />
                   <col :style="{ width: '50%' }" />
                   <col :style="{ width: '20%' }" />
             </colgroup> -->
-        <tr></tr>
-        <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
-      </table>
+          <thead>
+            <tr>
+              <th class="text-left">동</th>
+              <th class="text-left">아파트이름</th>
+              <th class="text-left">buildYear</th>
+              <th class="text-left">dealYear</th>
+              <th class="text-left">dealAmount</th>
+            </tr>
+          </thead>
+          <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
+        </template>
+      </v-simple-table>
     </div>
   </div>
 </template>

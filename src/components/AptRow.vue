@@ -1,13 +1,10 @@
 <template>
-
   <tr>
     <td>{{ apt.dong }}</td>
-      <td>{{ apt.name }}</td>
-       <td>{{ apt.buildYear }}</td>
-    <td>{{apt.dealYear}}</td>
-    <td>{{apt.jibun}}</td>
-    <td>{{apt.dealAmount}}</td>
-
+    <td>{{ apt.name }}</td>
+    <td>{{ apt.buildYear }}</td>
+    <td>{{ apt.dealYear }}</td>
+    <td>{{ apt.dealAmount }}</td>
   </tr>
 </template>
 
@@ -16,16 +13,13 @@ import moment from "moment";
 export default {
   name: "row",
   props: {
-    apt:{type:Object},
+    apt: { type: Object },
   },
-  computed: {
-  
-  },
-  created() {
-  },
+  computed: {},
+  created() {},
   methods: {
-     getFormatDate(regtime) {
-      return moment(new Date(regtime)).format('YYYY.MM.DD');
+    getFormatDate(regtime) {
+      return moment(new Date(regtime)).format("YYYY.MM.DD");
     },
   },
 };
