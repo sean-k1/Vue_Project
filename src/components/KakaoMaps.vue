@@ -108,7 +108,7 @@ const KakaoMaps = {
 
         this.matcharea();
         //this.showstation();
-        this.showdeallist();
+        //  this.showdeallist();
       });
     },
     matcharea() {
