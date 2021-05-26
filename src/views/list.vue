@@ -25,16 +25,6 @@
       <div class="d-flex justify-content-center container">
         <nav aria-label="...">
           <ul class="pagination">
-            <!-- <li v-if="startPage > 1" class="page-item disabled">
-              <v-btn
-                href="#"
-                @click="movePage(startPage - 1)"
-                class="page-link"
-                color="#E0E0E0"
-                tabindex="-1"
-                >Previous</v-btn
-              >
-            </li> -->
             <div class="text-center">
               <v-pagination
                 v-model="page"
@@ -43,27 +33,12 @@
                 @input="movePage"
               ></v-pagination>
             </div>
-            <!-- <li
-              class="page-item"
-              v-for="i in range(startPage, endPage)"
-              v-bind:key="i"
-            >
-              <a href="#" @click="movePage(i)" class="page-link">{{ i }}</a>
-            </li>
-            <li v-if="endPage < totalPage" class="page-item">
-              <v-btn color="#E0E0E0" href="#" @click="movePage(endPage + 1)"
-                >Next</v-btn
-              >
-            </li> -->
           </ul>
         </nav>
       </div>
     </div>
     <div v-else>글이 없습니다.</div>
-    <div class="text-right">
-      <!-- <button @click="`${movePage(pages.curPage-1)}`" class="btn btn-primary">이전</button>
-      <button @click="`${movePage(pages.curPage+1)}`" class="btn btn-primary">다음</button> -->
-    </div>
+    <div class="text-right"></div>
 
     <v-btn depressd color="primary" @click="write">등록</v-btn>
   </div>
@@ -81,7 +56,7 @@ export default {
   data: function () {
     return {
       boarda: [{ curpage: "" }],
-      page: "1",
+      page: 1,
       // items: [],
       // pages: [],
       // board: "",
