@@ -232,6 +232,10 @@ export default {
         email: "",
         address: "",
       },
+      img_choice(num) {
+        this.addUser.profile_img = num;
+        this.imageDialog = false;
+      },
     };
   },
   created() {

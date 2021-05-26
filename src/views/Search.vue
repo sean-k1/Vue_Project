@@ -1,24 +1,27 @@
 <template>
-  <v-text-field
+  <v-autocomplete
     flat
     hide-details
     append-icon="mdi-magnify"
     placeholder="Search"
-    outlined
     dense
     v-model="search"
+    :items="items"
     @click:append="temp"
     @keyup.enter="temp"
+    @input="search"
     class="hidden-sm-and-down"
-  ></v-text-field>
+  ></v-autocomplete>
 </template>
 
 <script>
 import kakaohttp from "../util/kakaohttp";
+import { data } from "@/util/areaAuto.js";
 export default {
   data: () => ({
     loading: true,
-    items: [],
+    items: data,
+    testSearch: null,
     search: null,
     select: null,
     states: [],
@@ -27,11 +30,11 @@ export default {
     stationlist: {},
   }),
   methods: {
-    temp() {
-      console.log(this.search);
-      this.searchtype(this.search);
+    temp(e) {
+      this.searchtype(e.target.value);
     },
     searchtype(query) {
+      console.log("검색어 :" + query);
       kakaohttp.get(`keyword.json?query=` + query).then(({ data }) => {
         let stationidx = 0;
         let aptidx = 0;
