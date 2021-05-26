@@ -96,7 +96,6 @@ export default {
       this.isModify = !this.isModify;
     },
     deleteBtn() {
-      console.log(this.user);
       this.$store.dispatch("adminDeleteUser", this.user);
     },
   },

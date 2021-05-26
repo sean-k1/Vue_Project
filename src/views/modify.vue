@@ -58,7 +58,6 @@ export default {
     };
   },
   created() {
-    console.log("modify : " + this.$route.query.bnum);
     this.$store.dispatch("getBoard", this.$route.query.bnum);
     this.item = this.board;
   },
@@ -71,7 +70,6 @@ export default {
   },
   methods: {
     putBoard() {
-      console.log(this.copyBoard);
       this.$store.dispatch("putBoard", this.copyBoard).then(() => {
         this.$router.push("list");
       });

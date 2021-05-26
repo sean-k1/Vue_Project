@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     deleteComment() {
-      console.log(this.cnum);
       this.$store.dispatch("deleteComment", this.cnum);
     },
   },

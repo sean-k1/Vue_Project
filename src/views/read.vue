@@ -72,7 +72,6 @@ export default {
   created() {
     this.$store.dispatch("getBoard", this.$route.query.bnum);
     this.$store.dispatch("getCmtList", this.$route.query.bnum);
-    console.log(this.board.userId);
   },
   methods: {
     // getCmtList() {
@@ -88,7 +87,6 @@ export default {
       this.comment.bnum = this.$route.query.bnum;
       this.comment.cwriter = this.$store.getters.userInfo.userName;
       this.comment.userId = this.$store.getters.userInfo.userId;
-      console.log(this.comment);
       this.$store.dispatch("postComment", this.comment);
     },
   },

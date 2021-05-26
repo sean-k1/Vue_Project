@@ -51,7 +51,6 @@ export default {
       return moment(new Date(regtime)).format("YYYY.MM.DD HH:mm:ss");
     },
     deleteBoard() {
-      console.log(this.board);
       this.$store.dispatch("deleteBoard", this.board);
       this.$router.push("list");
     },

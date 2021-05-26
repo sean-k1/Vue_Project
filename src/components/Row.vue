@@ -2,9 +2,11 @@
   <tr>
     <td>{{ board.bwriter }}</td>
     <td>
-     <router-link :to="`read?bnum=${board.bnum}`">{{ board.btitle }}</router-link> 
+      <router-link :to="`read?bnum=${board.bnum}`">{{
+        board.btitle
+      }}</router-link>
     </td>
-    <td>{{ getFormatDate(board.bregdate)}}</td> 
+    <td>{{ getFormatDate(board.bregdate) }}</td>
   </tr>
 </template>
 
@@ -13,19 +15,16 @@ import moment from "moment";
 export default {
   name: "row",
   props: {
-    board:{type:Object},
+    board: { type: Object },
   },
-  computed: {
-  
-  },
+  computed: {},
   created() {
-     //this.$store.dispatch("getRegdate");
-
+    //this.$store.dispatch("getRegdate");
     // this.bregdate = eval(this.bregdate);
   },
   methods: {
-     getFormatDate(regtime) {
-      return moment(new Date(regtime)).format('YYYY.MM.DD');
+    getFormatDate(regtime) {
+      return moment(new Date(regtime)).format("YYYY.MM.DD");
     },
   },
 };

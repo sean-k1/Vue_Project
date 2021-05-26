@@ -173,7 +173,6 @@ export default new Vuex.Store({
       boardhttp
       .get("/BoardMain?page=" + page)
       .then(({ data }) => {
-        console.log("movepage");
         context.commit("setBoards",data);
         context.commit("setTotalPage",data.totalPage);
         context.commit("setEndPage",data.endPage);
@@ -193,13 +192,11 @@ export default new Vuex.Store({
     },    getAptInfos(context, payload){
       // this.board = "board";            
       if ( payload.curPage== null) {
-        console.log("null");
         payload.curPage = 1;
       } 
       boardhttp
         .get("/mvhouseinfo?page=" + payload.curPage)
         .then(({ data }) => {
-          console.log("getAptInfos");
           context.commit("setBoards",data);
           context.commit("setAptTotalPage",data.totalPage);
           context.commit("setAptEndPage",data.endPage);
@@ -217,13 +214,11 @@ export default new Vuex.Store({
     getBoards(context, payload){
       // this.board = "board";            
       if ( payload.curPage== null) {
-        console.log("null");
         payload.curPage = 1;
       } 
       boardhttp
         .get("/BoardMain?page=" + payload.curPage)
         .then(({ data }) => {
-          console.log("getBoards");
           context.commit("setBoards",data);
           context.commit("setTotalPage",data.totalPage);
           context.commit("setEndPage",data.endPage);
@@ -250,7 +245,6 @@ export default new Vuex.Store({
         });
     },
     deleteBoard(context,payload){
-      console.log(payload.bnum);
       boardhttp
       .delete("/board?num="+payload.bnum)
       .then(()=>{
@@ -261,7 +255,6 @@ export default new Vuex.Store({
       })
     },
     putBoard(context,payload){
-      console.log(payload);
       boardhttp
       .put("/board",payload)
       .then(()=>{
@@ -275,16 +268,13 @@ export default new Vuex.Store({
     context.commit("setToken",payload);
   },
   login(context,payload){
-    console.log(payload);
     boardhttp
     .post("/login", payload)
     .then(({data})=>{
       alert("환영합니다!");
-      console.log("데이터 :" +JSON.stringify(data));
       context.commit("setToken",data.token);
       context.commit("setIsLoginTrue");
       boardhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
-      console.log(context.state.isLogin);
       this.dispatch('getUser',payload);
       Vue.prototype.$session.set("token",data.token);
     })
@@ -293,18 +283,15 @@ export default new Vuex.Store({
     })
   },
   getUser(context,payload){
-    console.log(payload);
     tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
     tokenhttp
     .post("/getUser",payload)
     .then(({data})=>{
       context.commit("setUserInfo",data);
-      console.log("***"+context.state.userInfo);
       Vue.prototype.$session.set("loginId",data.userId);
     })
   },
   signUp(context,payload){
-    console.log(payload);
     boardhttp
     .post("/signUp",payload)
     .then(()=>{
@@ -317,7 +304,6 @@ export default new Vuex.Store({
     ;
   },
   modifyUser(context,payload){
-    console.log(JSON.stringify(payload));
     tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
     tokenhttp
     .put("/modify",payload)
@@ -336,7 +322,6 @@ export default new Vuex.Store({
     tokenhttp
     .delete("/delete?userId="+context.state.userInfo.userId)
     .then(()=>{
-      console.log(context.state.userInfo.userId);
       context.commit("setUserInfo",null);
       context.commit("setToken",null);
       this.dispatch('logout');
@@ -369,7 +354,6 @@ export default new Vuex.Store({
     tokenhttp
     .get("userlist")
     .then(({data})=>{
-      console.log(data);
       context.commit("setUsers",data);      
 
     })
@@ -384,7 +368,6 @@ export default new Vuex.Store({
     })
   },
   adminDeleteUser(context,payload){
-    console.log(payload);
     tokenhttp
     .delete("/admin/"+payload.userId)
     .then(({data})=>{
@@ -393,7 +376,6 @@ export default new Vuex.Store({
     })
   },
   adminPutUser(context,payload){
-    console.log(payload);
     tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
     tokenhttp
     .put("/admin",payload)
@@ -403,9 +385,6 @@ export default new Vuex.Store({
     })
   },
     getStation(context, payload) {
-    console.log(context);
-    console.log(payload);
-    console.log("payload 들옴");
     context.commit("setStation",payload);
     },
     getdeallist(context, payload) {
@@ -420,14 +399,11 @@ export default new Vuex.Store({
       context.commit("setDealList",payload);
     },
     getCmtList(context,payload) {
-      console.log("댓글 읽기 : "+payload);
       boardhttp.get("/ajax?bnum="+payload).then(({ data }) => {
         context.commit("setComments",data);
-        console.log(data);
       });
     },
     postComment(context, payload){
-      console.log("댓글 작성 : "+ JSON.stringify(payload));
       tokenhttp
       .post("/ajax",payload)
       .then(()=>{
@@ -435,7 +411,6 @@ export default new Vuex.Store({
       })
     },
     deleteComment(context,payload){
-      console.log(payload);
       tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
       tokenhttp
       .put("cmtDelete",payload)

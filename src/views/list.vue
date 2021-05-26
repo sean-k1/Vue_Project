@@ -2,10 +2,6 @@
 
 <template>
   <div>
-    {{ startPage }}
-    {{ endPage }}
-    {{ curPage }}
-    {{ totalPage }}
     <v-simple-table>
       <template v-slot:default>
         <thead>

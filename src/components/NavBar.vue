@@ -429,7 +429,6 @@ export default {
       this.$store.dispatch("login", this.login).then(() => {});
     },
     postSignUp() {
-      console.log(this.signUp);
       this.$store.dispatch("signUp", this.signUp).then(() => {
         //window.location.reload();
       });
@@ -445,7 +444,6 @@ export default {
         this.isLogin = false;
         window.location.reload();
       });
-      console.log(this.isLogin);
     },
   },
   mounted() {
