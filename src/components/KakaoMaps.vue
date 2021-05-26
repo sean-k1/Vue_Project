@@ -272,6 +272,8 @@ const KakaoMaps = {
       var divMarker = document.createElement("div");
       divMarker.classList.add("customoverlay");
       // this.dragDealList = tmp;
+      divMarker.style.height = "40px";
+      divMarker.style.textAlign = "center";
       let out = this;
 
       divMarker.onclick = function() {
@@ -284,10 +286,11 @@ const KakaoMaps = {
       divMarker.onmousemove = function() {};
 
       divMarker.innerHTML = `
-                    <a href="#" class="clickevent">
-                    <span class="count">${deallist.length}</span>
-                    <span class="title">${place.place_name}</span>
-                    </a>`;
+                    <div v-html="<v-icon>mdi-filter</v-icon>"></div>
+          
+                    <span class="count" style="height:40px; font-size:15px;    ">${deallist.length}</span>
+                    <span class="title" style='font-size:10px !important; color:black; font-weight:bold; height:40px; width:100%' >${place.place_name}</span>
+                   `;
       // var content = `<div class="customoverlay mymarker">
       //               <div class="mymarker-info" style="display:none;">${JSON.stringify(
       //                 deallist
@@ -373,44 +376,21 @@ export default KakaoMaps;
   position: relative;
   bottom: 85px;
   border-radius: 6px;
+
   border: 1px solid #ccc;
   border-bottom: 2px solid #ddd;
+  background: rgb(233, 246, 252);
   float: left;
 }
 .customoverlay .title {
-  display: inline-flex;
+  /* display: inline-flex; */
+
   text-align: center;
-  background: #fff;
-  margin-right: 35px;
-  padding: 12px 10px 15px 15px;
-  font-size: 14px;
   font-weight: bold;
 }
 .customoverlay .count {
-  display: inline-flex;
   text-align: center;
-  background: #fff;
-  font-size: 20px;
+  padding-left: 10px;
   font-weight: bold;
-  padding: 13px 15px 17px 17px;
-  margin-right: -5px;
 }
-/* .customoverlay a {display:inline-block;text-decoration:none; color:black} */
-.customoverlay a {
-  display: block;
-  text-decoration: none;
-  color: #000;
-  text-align: center;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #d95050;
-  background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
-    no-repeat right 14px center;
-}
-/* .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;} */
-/* .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')} */
-/* .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
-.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')} */
 </style>

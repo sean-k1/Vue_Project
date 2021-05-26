@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "moment": "^2.29.1",
+    "num-to-korean": "^0.4.2",
     "plyrue": "^2.1.6",
     "vee-validate": "^3.2.5",
     "video.js": "^7.7.5",
