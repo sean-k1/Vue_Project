@@ -71,6 +71,15 @@ const KakaoMaps = {
       bounds.extend(new kakao.maps.LatLng(val.y, val.x));
       this.map.setBounds(bounds);
       this.displayMarker(val);
+      let boundsnow = this.map.getBounds();
+
+      // 영역정보의 남서쪽 정보를 얻어옵니다
+      this.swLatlng = boundsnow.getSouthWest();
+
+      // 영역정보의 북동쪽 정보를 얻어옵니다
+      this.neLatlng = boundsnow.getNorthEast();
+
+      this.matcharea();
     },
   },
   methods: {
@@ -116,11 +125,13 @@ const KakaoMaps = {
       let swla = this.swLatlng.La;
       let nema = this.neLatlng.Ma;
       let swma = this.swLatlng.Ma;
+      console.log("enter matcharea");
       boardhttp
         .get(
           "/house/matcharea?swLat=" + swma + "&swlng=" + swla + "&neLat=" + nema + "&nelng=" + nela
         )
         .then(({ data }) => {
+          console.log(JSON.stringify(data));
           this.showdeallist(data);
         });
     },
