@@ -80,21 +80,6 @@
       <h4 class=" font-weight-bold">매매 정보</h4>
 
       <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
-
-      <!-- <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">동</th>
-              <th class="text-left">아파트이름</th>
-              <th class="text-left">buildYear</th>
-              <th class="text-left">dealYear</th>
-              <th class="text-left">dealAmount</th>
-            </tr>
-          </thead>
-          <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
-        </template>
-      </v-simple-table> -->
     </div>
   </div>
 </template>
