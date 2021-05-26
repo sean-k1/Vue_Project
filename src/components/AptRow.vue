@@ -5,9 +5,13 @@
         <v-img src="//placehold.it/80x120" max-width="80" class="ml-3"></v-img>
       </v-col>
       <v-col>
-        <v-card-title> {{ apt.dealAmount | comma }} / {{ apt.name }} </v-card-title>
+        <v-card-title>
+          {{ apt.dealAmount | comma }} / {{ apt.name }}
+        </v-card-title>
         <v-card-subtitle> {{ apt.dong }} / {{ apt.dealYear }} </v-card-subtitle>
-        <v-card-subtitle> 면적 : {{ apt.width }} / 층 : {{ apt.stair }}</v-card-subtitle>
+        <v-card-subtitle>
+          면적 : {{ apt.width }} / 층 : {{ apt.stair }}</v-card-subtitle
+        >
       </v-col>
     </v-row>
   </v-card>
@@ -31,7 +35,8 @@ export default {
       var resultString = "";
 
       for (let i = 0; i < splitCount; i++) {
-        var unitResult = (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
+        var unitResult =
+          (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
         unitResult = Math.floor(unitResult);
         if (unitResult > 0) {
           resultArray[i] = unitResult;

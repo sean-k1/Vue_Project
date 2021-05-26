@@ -235,8 +235,9 @@ export default new Vuex.Store({
       return Math.floor(Math.random(10, 100) * 100);
     },
     postBoard(context, payload) {
-      boardhttp
-        .post("/board",payload)
+      tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      tokenhttp
+        .post("/postboard",payload)
         .then(() => {
         
         })
@@ -245,8 +246,9 @@ export default new Vuex.Store({
         });
     },
     deleteBoard(context,payload){
-      boardhttp
-      .delete("/board?num="+payload.bnum)
+      tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      tokenhttp
+      .delete("/deleteboard?num="+payload.bnum)
       .then(()=>{
         alert("삭제 되었습니다!");
       })
@@ -255,8 +257,9 @@ export default new Vuex.Store({
       })
     },
     putBoard(context,payload){
-      boardhttp
-      .put("/board",payload)
+      tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      tokenhttp
+      .put("/putboard",payload)
       .then(()=>{
         alert("수정 완료");
       })
