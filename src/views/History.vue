@@ -4,7 +4,6 @@
       <v-row class="fill-height">
         <v-col cols="9">
           <kakaomap> </kakaomap>
-          maps area
         </v-col>
         <v-col
           cols="3"

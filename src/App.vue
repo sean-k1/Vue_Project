@@ -3,15 +3,11 @@
     <router-view name="NavBar"></router-view>
     <v-content
       :class="{
-        'content-bg': ![
-          'SignIn',
-          'SignUp',
-          'Dashboard',
-          'Video',
-          'Detail'
-        ].includes(this.$route.name)
+        'content-bg': !['SignIn', 'SignUp', 'Dashboard', 'Video', 'Detail'].includes(
+          this.$route.name
+        )
           ? true
-          : false
+          : false,
       }"
     >
       <router-view></router-view>
@@ -21,8 +17,8 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+};
 </script>
 
 <style lang="scss">

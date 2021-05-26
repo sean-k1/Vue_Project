@@ -20,8 +20,6 @@ export default {
   computed: {},
   methods: {
     setCenterMap(x, y) {
-      console.log("enter x y");
-
       let temp = {
         x: x,
         y: y,

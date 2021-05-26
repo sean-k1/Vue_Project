@@ -76,11 +76,10 @@
         <br />
       </div>
     </div>
-    <div v-else>
+    <div v-else class="stuck">
       <h4 class=" font-weight-bold">매매 정보</h4>
 
-      <apt-row onscroll="myFunction()" v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt">
-      </apt-row>
+      <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
     </div>
   </div>
 </template>
@@ -127,5 +126,9 @@ export default {
 <style>
 .inline-block {
   display: inline-block;
+}
+.stuck {
+  overflow-x: hidden;
+  height: 1400px;
 }
 </style>
