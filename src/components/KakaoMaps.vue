@@ -259,15 +259,4 @@ export default KakaoMaps;
   padding-left: 10px;
   padding-right: 10px;
 }
-
-/* .customoverlay .title {
-  
-  text-align: center;
-  font-weight: bold;
-}
-.customoverlay .count {
-  text-align: center;
-  padding-left: 10px;
-  font-weight: bold;
-} */
 </style>

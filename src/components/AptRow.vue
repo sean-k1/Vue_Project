@@ -2,12 +2,19 @@
   <v-card class="mb-2" tile="">
     <v-row align="start">
       <v-col class="shrink">
-        <v-img src="//placehold.it/80x120" max-width="80" class="ml-3"></v-img>
+        <v-img v-if="apt.type == '아파트'" src="@/img/apt.png" max-width="150" class="ml-3"></v-img>
+        <v-img
+          v-if="apt.type == '오피스텔'"
+          src="@/img/office.png"
+          max-width="150"
+          class="ml-3"
+        ></v-img>
       </v-col>
       <v-col>
         <v-card-title> {{ apt.dealAmount | comma }} / {{ apt.name }} </v-card-title>
         <v-card-subtitle> {{ apt.dong }} / {{ apt.dealYear }} </v-card-subtitle>
         <v-card-subtitle> 면적 : {{ apt.width }} / 층 : {{ apt.stair }}</v-card-subtitle>
+        {{ apt.type }}
       </v-col>
     </v-row>
   </v-card>
