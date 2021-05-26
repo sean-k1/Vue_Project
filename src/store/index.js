@@ -9,7 +9,9 @@ Vue.use(Vuex);
 Vue.use(VueSession);
 export default new Vuex.Store({
   state: {
-    userInfo:{},
+    userInfo:{
+      profile_img:"1",
+    },
     token:"",
     board:{},
     boards:[],
@@ -259,6 +261,7 @@ export default new Vuex.Store({
       })
     },
     putBoard(context,payload){
+      console.log(payload);
       boardhttp
       .put("/board",payload)
       .then(()=>{
@@ -341,9 +344,9 @@ export default new Vuex.Store({
     })
   },
   logout(context){
-    context.commit("setUserInfo",null);
-    context.commit("setToken",null);
     context.commit("setIsLoginFalse");
+    context.commit("setToken",null);
+    context.commit("setUserInfo",null);
     Vue.prototype.$session.remove("token");
     Vue.prototype.$session.remove("loginId");
   },
@@ -428,6 +431,16 @@ export default new Vuex.Store({
       tokenhttp
       .post("/ajax",payload)
       .then(()=>{
+        window.location.reload();
+      })
+    },
+    deleteComment(context,payload){
+      console.log(payload);
+      tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      tokenhttp
+      .put("cmtDelete",payload)
+      .then(()=>{
+        alert("삭제 되었습니다!");
         window.location.reload();
       })
     },

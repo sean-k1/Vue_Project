@@ -24,16 +24,22 @@
         </tbody>
       </template>
     </v-simple-table>
-
-    <span><v-btn @click="putBoard" color="info">수정하기</v-btn></span>
-
-    <span><v-btn @click="deleteBoard" color="red">삭제하기</v-btn></span>
-
+    <div
+      class="text-center"
+      v-if="board.userId == userInfo.userId || userInfo.userId == 'admin'"
+    >
+      <span><v-btn @click="putBoard" color="info" small>수정하기</v-btn></span>
+      &nbsp;
+      <span
+        ><v-btn @click="deleteBoard" color="red" small>삭제하기</v-btn></span
+      >
+    </div>
     <br />
   </div>
 </template>
  
 <script>
+import { mapGetters } from "vuex";
 import moment from "moment";
 export default {
   name: "detail",
@@ -52,6 +58,9 @@ export default {
     putBoard() {
       this.$router.push("modify?bnum=" + this.board.bnum);
     },
+  },
+  computed: {
+    ...mapGetters(["userInfo"]),
   },
 };
 </script>

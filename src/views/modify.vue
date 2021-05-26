@@ -1,30 +1,51 @@
 <template>
   <div>
     <h4>게시글 작성</h4>
-    <b-container>
-      <b-form-group id="input-name" label="제목" label-for="input-title">
-        <b-form-input
-          id="input-title"
-          type="text"
-          v-model="item.btitle"
-          placeholder="제목을 입력하세요"
-          value="this.item.title"
-          required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group id="input-name" label="내용" label-for="input-content">
-        <b-form-textarea
-          id="input-content"
-          type="text"
-          v-model="item.bcontent"
-          placeholder="내용을 입력하세요"
-          rows="10"
-          max-rows="10"
-          required
-        ></b-form-textarea>
-        <b-button @click="putBoard">수정하기</b-button>
-      </b-form-group>
-    </b-container>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left" colspan="3">제목</th>
+            <th class="text-left">작성자</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <v-text-field
+                :counter="25"
+                placeholder="제목을 입력해주세요"
+                v-model="copyBoard.btitle"
+                required
+              ></v-text-field>
+            </td>
+            <td>
+              <v-text-field
+                disabled
+                v-model="copyBoard.bwriter"
+                required
+              ></v-text-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center" colspan="3">내용</td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <v-textarea
+                filled
+                :counter="1000"
+                v-model="copyBoard.bcontent"
+                placeholder="여기에 몬가 적어주세요"
+                rows="15"
+                row-height="30"
+              ></v-textarea>
+            </td>
+          </tr>
+        </tbody>
+        <v-btn @click="putBoard">작성하기</v-btn>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
@@ -43,11 +64,15 @@ export default {
   },
   computed: {
     ...mapGetters(["board"]),
+    copyBoard() {
+      let temp = JSON.parse(JSON.stringify(this.board));
+      return temp;
+    },
   },
   methods: {
     putBoard() {
-      this.board.bnum = this.$route.query.bnum;
-      this.$store.dispatch("putBoard", this.item).then(() => {
+      console.log(this.copyBoard);
+      this.$store.dispatch("putBoard", this.copyBoard).then(() => {
         this.$router.push("list");
       });
     },
