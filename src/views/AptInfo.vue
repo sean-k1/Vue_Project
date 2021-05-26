@@ -78,6 +78,7 @@
     </div>
     <div v-else>
       <h4 class=" font-weight-bold">매매 정보</h4>
+
       <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
 
       <!-- <v-simple-table>
@@ -115,7 +116,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["deallist", "searchResult"]),
+    ...mapGetters(["deallist", "searchResult", "startPage", "endPage", "curPage", "totalPage"]),
   },
 
   methods: {
@@ -129,6 +130,9 @@ export default {
       }
       return list;
     },
+  },
+  movePage(page) {
+    this.$store.dispatch("movePage", page);
   },
 };
 </script>

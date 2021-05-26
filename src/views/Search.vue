@@ -93,9 +93,9 @@ export default {
             }
           }
         }
-        if (flag) {
-          console.log("enter");
+        console.log("지나감");
 
+        if (flag) {
           let searchResult = {
             stationlist: this.stationlist,
             aptlist: this.aptlist,
@@ -103,6 +103,16 @@ export default {
           };
 
           this.$store.dispatch("searchResult", searchResult);
+        } else if (data.documents.length == 0) {
+          console.log("enter 2");
+          this.search = "관련 데이터가 없습니다.";
+        } else {
+          console.log("enter");
+          let temp = {
+            x: data.documents[0].x,
+            y: data.documents[0].y,
+          };
+          this.$store.dispatch("centerMap", temp);
         }
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
