@@ -144,8 +144,8 @@ const KakaoMaps = {
       let tmp = JSON.parse(JSON.stringify(deallist));
       var divMarker = document.createElement("div");
       divMarker.classList.add("customoverlay");
-      divMarker.style.height = "40px";
-      divMarker.style.textAlign = "center";
+      //divMarker.style.height = "40px";
+
       let out = this;
 
       divMarker.onclick = function() {
@@ -154,18 +154,22 @@ const KakaoMaps = {
         out.$store.dispatch("getDealListDragger", temp);
       };
       divMarker.onmousemove = function() {};
-
+      // <span class="count" style="height:40px; font-size:15px;    ">${deallist.length}</span>
+      //  <span class="title" style='font-size:10px !important; color:black; font-weight:bold; height:40px; width:100%' >${place.place_name}</span>
       divMarker.innerHTML = `
-                    <div v-html="<v-icon>mdi-filter</v-icon>"></div>
-          
-                    <span class="count" style="height:40px; font-size:15px;    ">${deallist.length}</span>
-                    <span class="title" style='font-size:10px !important; color:black; font-weight:bold; height:40px; width:100%' >${place.place_name}</span>
+                
+    <a href="#" >
+    <span class="count" style=" color:black; font-size:15px;">${deallist.length}</span>
+    <span class="title" style="font-size:13px !important; color:black; font-weight:bold";>${place.place_name}</span>
+    </a>
+                  
                    `;
 
       let latlng = place.y + " " + place.x;
       if (!this.placesxy.includes(latlng)) {
         var customOverlay = new kakao.maps.CustomOverlay({
           map: this.map,
+          // - 0.00018
           position: new kakao.maps.LatLng(place.y - 0.00018, place.x),
           content: divMarker,
           yAnchor: 1,
@@ -212,9 +216,52 @@ export default KakaoMaps;
   background: rgb(233, 246, 252);
   float: left;
 }
+.customoverlay:nth-of-type(n) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+.customoverlay a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  overflow: hidden;
+  background: #d95050;
+  background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
+}
 .customoverlay .title {
-  /* display: inline-flex; */
+  /* display: block; */
+  text-align: center;
+  background: #fff;
+  margin-right: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.customoverlay:after {
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: -12px;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
+}
+.customoverlay .count {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
+/* .customoverlay .title {
+  
   text-align: center;
   font-weight: bold;
 }
@@ -222,5 +269,5 @@ export default KakaoMaps;
   text-align: center;
   padding-left: 10px;
   font-weight: bold;
-}
+} */
 </style>
