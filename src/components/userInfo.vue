@@ -27,7 +27,7 @@
               @click="img_choice(1)"
               style="cursor: pointer"
             >
-              <img src="@/img/test1.jpg" />
+              <img src="http://localhost:9999/happyhouse/img/test1.jpg" />
             </v-list-item-avatar>
           </v-col>
           <v-col align="center">
@@ -36,7 +36,7 @@
               @click="img_choice(2)"
               style="cursor: pointer"
             >
-              <img src="@/img/test2.jpg" />
+              <img src="http://localhost:9999/happyhouse/img/test2.jpg" />
             </v-list-item-avatar>
           </v-col>
         </v-row>
@@ -47,7 +47,7 @@
               @click="img_choice(3)"
               style="cursor: pointer"
             >
-              <img src="@/img/test3.jpg" />
+              <img src="http://localhost:9999/happyhouse/img/test3.jpg" />
             </v-list-item-avatar>
           </v-col>
           <v-col align="center">
@@ -56,7 +56,7 @@
               @click="img_choice(4)"
               style="cursor: pointer"
             >
-              <img src="@/img/test4.jpg" />
+              <img src="http://localhost:9999/happyhouse/img/test4.jpg" />
             </v-list-item-avatar>
           </v-col>
         </v-row>
@@ -67,7 +67,7 @@
               @click="img_choice(5)"
               style="cursor: pointer"
             >
-              <img src="@/img/test5.jpg" />
+              <img src="http://localhost:9999/happyhouse/img/test5.jpg" />
             </v-list-item-avatar>
           </v-col>
           <v-col align="center">
@@ -76,7 +76,7 @@
               @click="img_choice(6)"
               style="cursor: pointer"
             >
-              <img src="@/img/test6.jpg" />
+              <img src="http://localhost:9999/happyhouse/img/test6.jpg" />
             </v-list-item-avatar>
           </v-col>
         </v-row>

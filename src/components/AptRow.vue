@@ -9,12 +9,18 @@
           max-width="150"
           class="ml-3"
         ></v-img>
+        <v-img
+          v-if="apt.type == '연립주택'"
+          src="@/img/townhome.png"
+          max-width="150"
+          class="ml-3"
+        ></v-img>
       </v-col>
       <v-col>
         <v-card-title> {{ apt.dealAmount | comma }} / {{ apt.name }} </v-card-title>
         <v-card-subtitle> {{ apt.dong }} / {{ apt.dealYear }} </v-card-subtitle>
+
         <v-card-subtitle> 면적 : {{ apt.width }} / 층 : {{ apt.stair }}</v-card-subtitle>
-        {{ apt.type }}
       </v-col>
     </v-row>
   </v-card>
