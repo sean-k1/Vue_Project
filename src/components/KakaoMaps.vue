@@ -39,8 +39,6 @@ const KakaoMaps = {
   },
   watch: {
     centerMap: function(val) {
-      console.log(val);
-      console.log(val.x);
       this.removeMarker();
       var bounds = new kakao.maps.LatLngBounds();
       bounds.extend(new kakao.maps.LatLng(val.y, val.x));
@@ -58,9 +56,6 @@ const KakaoMaps = {
     },
   },
   methods: {
-    fromBar(newDrawer) {
-      console.log(newDrawer);
-    },
     initMap() {
       let container = document.getElementById("map");
       let options = {
@@ -103,7 +98,6 @@ const KakaoMaps = {
           "/house/matcharea?swLat=" + swma + "&swlng=" + swla + "&neLat=" + nema + "&nelng=" + nela
         )
         .then(({ data }) => {
-          console.log(JSON.stringify(data));
           this.showdeallist(data);
         });
     },

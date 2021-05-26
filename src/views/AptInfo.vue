@@ -79,7 +79,8 @@
     <div v-else>
       <h4 class=" font-weight-bold">매매 정보</h4>
 
-      <apt-row v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt"> </apt-row>
+      <apt-row onscroll="myFunction()" v-for="(apt, idx) in deallist.bList" :key="idx" :apt="apt">
+      </apt-row>
     </div>
   </div>
 </template>
@@ -105,6 +106,7 @@ export default {
   },
 
   methods: {
+    myFunction() {},
     write() {
       this.$router.push("write");
     },
