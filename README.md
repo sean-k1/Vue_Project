@@ -1,6 +1,82 @@
 
 ---
 
+# WantSeek House
+
+
+## 간단한 설명
+
+지도(Kakao Map API)와 검색을 통해 얻은 지리 좌표로 거래 내역을 보여주는 홈페이지
+
+
+## 기술 스택
+
+### Front-end
+
+- Vue.js
+
+### Back-end
+
+- Spring boot (Rest API)
+
+## 기능
+
+- 회원 관리
+  - 회원 가입
+  - 회원 수정
+  - 회원 탈퇴
+  - 로그인
+  - 로그아웃
+  - 관리자 페이지 (회원 추가, 수정, 삭제)
+- 게시판
+  - 게시글 작성
+  - 게시글 삭제
+  - 게시글 수정
+  - 게시글 읽기
+  - 댓글 작성
+  - 댓글 삭제
+- Map
+  - 매물 확인
+  - 매물 클릭 시 세부 정보
+  - 검색 시 검색어에 대응하는 시설 표시(지하철, 건물)
+  - 다세대/아파트/오피스텔 별 이미지 구분
+  - Map에서 Drag시 법정동에 따라 매물 표시
+- Admin
+  - 게시판에 있는 게시글 수정, 삭제 권한
+
+## 구조
+
+    ├── public
+    ├── src
+    │   ├── components
+    │   │   ├──  AptRow - Q&A 게시판 관련 컴포넌트
+    │   │   ├──  CommentList - 댓글 리스트 컴포넌트
+    │   │   ├──  Detail - 게시물 확인 컴포넌트
+    │   │   ├──  KakaoMaps - 카카오 Map Api 관련 컴포넌트
+    │   │   ├──  NavBar - 검색창 및 로그인, 게시판 선택 컴포넌트
+    │   │   ├──  Row - list.vue에 게시물 출력하는 컴포넌트
+    │   │   ├──  SearchRow - 
+    │   │   ├──  userInfo - 유저 정보 변경 관련 컴포넌트
+    │   │   └──  userList - adminPage.vue에서 유저 관리 관련 컴포넌트
+    │   ├── router - Vue-Router 설정
+    │   ├── Store - vuex 관련 설정
+    │   ├── Views
+    │   │   ├──  About - 
+    │   │   ├──  adminPage - 관리자가 유저관리 등을 위한 페이지
+    │   │   ├──  AptInfo - 
+    │   │   ├──  list - 게시판에서 게시물 리스트 페이지
+    │   │   ├──  modify - 게시물 수정 페이지
+    │   │   ├──  Search - 
+    │   │   ├──  WantSeekMap - 
+    │   │   └──  write - 게시글 쓰기 페이지
+    │   ├── utils
+    │   │     ├── areaAuto.js - 검색 자동 완성 관련
+    │   │     ├── Boardhttp.js - 권한 없이 열람 가능한 기능 관련
+    │   │     ├── kakaohttp.js - kakaoMap api 관련
+    │   │     └── Tokenhttp.js - 권한이 필요한 모든  관련
+
+
+
 ### JWT
 
 * Controller
