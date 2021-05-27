@@ -66,7 +66,7 @@ private String doGenerateToken(Map<String, Object> claims, String subject) {
 
 ```
 * authorizeRequests()
- * HttpServeletRequest에 따라 access를 제한함
+  * HttpServeletRequest에 따라 access를 제한함
   * .antMatchers("/login").permitAll() : /login 으로 시작하는 경로는 권한 없이 접근이 가능
   * .antMatchers("/admin/**").hasRole("ADMIN") : admin롤을 가진 사용자만 접근 가능
 
