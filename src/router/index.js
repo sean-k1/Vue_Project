@@ -73,11 +73,11 @@ const routes = [
   
   {
     path: '/',
-    name: 'History',
+    name: 'WantSeekMap',
     components: {
       NavBar,
       default: () =>
-        import(/* webpackChunkName: "video" */ '../views/History.vue')
+        import(/* webpackChunkName: "video" */ '../views/WantSeekMap.vue')
     }
   },
   
