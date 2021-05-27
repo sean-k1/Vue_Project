@@ -29,6 +29,7 @@ private String doGenerateToken(Map<String, Object> claims, String subject) {
             .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 ```
+
 *
   * claim : token에 담을 정보
   * issuer : token 발급자
@@ -47,6 +48,27 @@ private String doGenerateToken(Map<String, Object> claims, String subject) {
 * WebSecurityConfig
   * WebSecurity와 HttpSecurity를 커스터마이징 가능
   * 예외적 허용을 해줄 요청을 설정할 수도 있음 (ex. 로그인)
+  
+```java
+@Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable()
+            .authorizeRequests().antMatchers("/happyhouse/BoardMain","/happyhouse/board/**", "/happyhouse/login","/happyhouse/signUp", "/happyhouse/test" , "/happyhouse/board","/happyhouse/house/**", "/happyhouse/ajax","/img/**","/","/js/**", "/css/**","/**").permitAll().
+            requestMatchers(CorsUtils::isPreFlightRequest).permitAll().
+
+                anyRequest().authenticated().and().
+                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+```
+* authorizeRequests()
+ * HttpServeletRequest에 따라 access를 제한함
+  * .antMatchers("/login").permitAll() : /login 으로 시작하는 경로는 권한 없이 접근이 가능
+  * .antMatchers("/admin/**").hasRole("ADMIN") : admin롤을 가진 사용자만 접근 가능
 
 
 ---
