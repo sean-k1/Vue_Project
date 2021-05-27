@@ -59,12 +59,7 @@
                 </v-list-item-icon>
                 <v-list-item-title>회원 정보</v-list-item-title>
               </v-list-item>
-              <v-list-item router to="/studio">
-                <v-list-item-icon>
-                  <v-icon>mdi-youtube-studio</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>VueTube Studio</v-list-item-title>
-              </v-list-item>
+
               <v-list-item @click="logOut">
                 <v-list-item-icon>
                   <v-icon>mdi-login-variant</v-icon>

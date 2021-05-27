@@ -7,7 +7,7 @@
     </td>
   </tr>
 </template>
- 
+
 <script>
 import { mapGetters } from "vuex";
 export default {
@@ -15,7 +15,7 @@ export default {
   props: {
     cwriter: { type: String },
     ccontent: { type: String },
-    cnum: { type: String },
+    cnum: { type: Number },
   },
   methods: {
     deleteComment() {

@@ -264,7 +264,7 @@ export default new Vuex.Store({
         alert("수정 완료");
       })
       .catch(()=>{
-        alert("modify error");
+        alert("권한이 없습니다!");
       })
     },
   setToken(context,payload){
