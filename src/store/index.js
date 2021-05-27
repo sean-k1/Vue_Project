@@ -236,6 +236,7 @@ export default new Vuex.Store({
     },
     postBoard(context, payload) {
       tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      console.log(tokenhttp.defaults.headers['Authorization']);
       tokenhttp
         .post("/postboard",payload)
         .then(() => {
@@ -277,7 +278,8 @@ export default new Vuex.Store({
       alert("환영합니다!");
       context.commit("setToken",data.token);
       context.commit("setIsLoginTrue");
-      boardhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+      tokenhttp.defaults.headers['userid']=payload.userId;
       this.dispatch('getUser',payload);
       Vue.prototype.$session.set("token",data.token);
     })
@@ -286,7 +288,8 @@ export default new Vuex.Store({
     })
   },
   getUser(context,payload){
-    tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+    //tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+    console.log("겟 유저 :"+ tokenhttp.defaults.headers['userid']);
     tokenhttp
     .post("/getUser",payload)
     .then(({data})=>{
@@ -344,16 +347,18 @@ export default new Vuex.Store({
     let token =  Vue.prototype.$session.get("token");
 
     tokenhttp.defaults.headers['Authorization']="Bearer " + token;
+    tokenhttp.defaults.headers['userid']=loginId.userId;
+    console.log("세션 : "+tokenhttp.defaults.headers['Authorization']);
 
     if(loginId != null && token != null){
       context.commit("setIsLoginTrue");
-      context.commit("setToken",token);
-      this.dispatch("setToken",token);      
+      context.commit("setToken",token);     
       this.dispatch('getUser',loginId);
     }
   },
   getUserList(context){
-    tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+    // tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+    // tokenhttp.defaults.headers['userId']=context.state.userInfo.userId;
     tokenhttp
     .get("userlist")
     .then(({data})=>{
@@ -363,6 +368,7 @@ export default new Vuex.Store({
   },
   postUser(context,payload){    
     tokenhttp.defaults.headers['Authorization']="Bearer " + context.state.token;
+    tokenhttp.defaults.headers['userId']=context.state.userInfo.userId;
     tokenhttp
     .post("/admin",payload)
     .then(({data})=>{
