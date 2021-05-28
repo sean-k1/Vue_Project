@@ -148,3 +148,16 @@ private String doGenerateToken(Map<String, Object> claims, String subject) {
 
 
 ---
+## 기능
+
+- 장소 , 역 검색 기능 (components/ Search.vue)
+    - KAKAO keyword API (검색 결과 파씽)
+
+     
+
+  
+
+- 스크롤 이동 시 주위 매물 정보 표시 보여주기 (components/ KakaoMaps.vue)
+    - KAKAO MAPS API Custom Overlay
+
+  
