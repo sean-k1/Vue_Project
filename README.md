@@ -148,7 +148,6 @@ private String doGenerateToken(Map<String, Object> claims, String subject) {
 
 
 ---
-## 기능
 
 - 장소 , 역 검색 기능 (components/ Search.vue)
     - KAKAO keyword API (검색 결과 파씽)
