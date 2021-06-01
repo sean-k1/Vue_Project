@@ -7,8 +7,6 @@ import BoardWrite from "../views/write.vue";
 import BoardModify from "../views/modify.vue";
 import Board from "../views/board.vue";
 import AdminPage from "@/views/adminPage.vue";
-//import AptInfo from "../views/AptInfo.vue";
-import About from "../views/About.vue";
 import userInfo from "@/components/userInfo.vue";
 
 
@@ -47,13 +45,7 @@ const routes = [
       
     ],
   },
-  {
-    path: "/about",
-    name: "AptInfo",
-    component: About,
 
-    
-  },
   {
     path:"/userInfo",
     name:"userInfo",
