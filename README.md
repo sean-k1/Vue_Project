@@ -55,7 +55,7 @@
     │   │   ├──  KakaoMaps - 카카오 Map Api 관련 컴포넌트
     │   │   ├──  NavBar - 검색창 및 로그인, 게시판 선택 컴포넌트
     │   │   ├──  Row - list.vue에 게시물 출력하는 컴포넌트
-    │   │   ├──  SearchRow - 
+    │   │   ├──  SearchRow - 매물 정보 관련 컴포넌트
     │   │   ├──  userInfo - 유저 정보 변경 관련 컴포넌트
     │   │   └──  userList - adminPage.vue에서 유저 관리 관련 컴포넌트
     │   ├── router - Vue-Router 설정
@@ -63,11 +63,11 @@
     │   ├── Views
     │   │   ├──  About - 
     │   │   ├──  adminPage - 관리자가 유저관리 등을 위한 페이지
-    │   │   ├──  AptInfo - 
+    │   │   ├──  AptInfo - 매물정보 리스트 페이지
     │   │   ├──  list - 게시판에서 게시물 리스트 페이지
     │   │   ├──  modify - 게시물 수정 페이지
-    │   │   ├──  Search - 
-    │   │   ├──  WantSeekMap - 
+    │   │   ├──  Search - 법정동 , 역 검색 용도
+    │   │   ├──  WantSeekMap - KakaoMap Custom Overlay 
     │   │   └──  write - 게시글 쓰기 페이지
     │   ├── utils
     │   │     ├── areaAuto.js - 검색 자동 완성 관련
