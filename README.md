@@ -154,7 +154,7 @@ private String doGenerateToken(Map<String, Object> claims, String subject) {
      ![검색내역](https://user-images.githubusercontent.com/22265915/119916011-a9d55300-bf9e-11eb-8f44-75008b79d381.png)
   
 
-- 스크롤 이동 시 주위 매물 정보 표시 보여주기 (components/ KakaoMaps.vue)
+- 스크롤 이동 시 주위 매물 정보 표시 보여주기 (components/ WantSeekMap.vue)
     - KAKAO MAPS API Custom Overlay
 
 
