@@ -61,7 +61,6 @@
     │   ├── router - Vue-Router 설정
     │   ├── Store - vuex 관련 설정
     │   ├── Views
-    │   │   ├──  About - 
     │   │   ├──  adminPage - 관리자가 유저관리 등을 위한 페이지
     │   │   ├──  AptInfo - 매물정보 리스트 페이지
     │   │   ├──  list - 게시판에서 게시물 리스트 페이지
