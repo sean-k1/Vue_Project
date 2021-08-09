@@ -8,6 +8,7 @@
 
 지도(Kakao Map API)와 검색을 통해 얻은 지리 좌표로 거래 내역을 보여주는 홈페이지
 
+Spring Boot (REST API) (https://lab.ssafy.com/uhs2000/pairproject11)
 
 ## 기술 스택
 
